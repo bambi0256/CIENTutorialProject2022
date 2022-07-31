@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Script
+namespace Script.TileScripts
 {
     public class EndTile : MonoBehaviour
     {
@@ -10,7 +9,7 @@ namespace Script
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (!col.CompareTag("ball")) return;
+            if (!col.CompareTag($"Ball")) return;
             isClear = true;
         }
 
