@@ -50,28 +50,28 @@ public class PlayerController : MonoBehaviour
         {
             this.prePosition = transform.position;
 
-            if (Input.GetKeyDown(KeyCode.UpArrow) ^ Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W))
             {
                 playerTurn(0.0f);
                 this.buttonFlagUp = true;
 
                 this.targetPosition.y += this.tileLength;
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow) ^ Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKeyDown(KeyCode.S))
             {
                 playerTurn(180.0f);
                 this.buttonFlagDown = true;
 
                 this.targetPosition.y -= this.tileLength;
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow) ^ Input.GetKeyDown(KeyCode.A))
+            else if (Input.GetKeyDown(KeyCode.A))
             {
                 playerTurn(90.0f);
                 this.buttonFlagLeft = true;
 
                 this.targetPosition.x -= this.tileLength;
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) ^ Input.GetKeyDown(KeyCode.D))
+            else if (Input.GetKeyDown(KeyCode.D))
             {
                 playerTurn(-90.0f);
                 this.buttonFlagRight = true;
@@ -85,19 +85,19 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (this.buttonFlagUp && (Input.GetKey(KeyCode.UpArrow) ^ Input.GetKey(KeyCode.W)))
+        if (this.buttonFlagUp && Input.GetKey(KeyCode.W))
         {
             moving();
         }
-        if (this.buttonFlagDown && (Input.GetKey(KeyCode.DownArrow) ^ Input.GetKey(KeyCode.S)))
+        if (this.buttonFlagDown && Input.GetKey(KeyCode.S))
         {
             moving();
         }
-        if (this.buttonFlagLeft && (Input.GetKey(KeyCode.LeftArrow) ^ Input.GetKey(KeyCode.A)))
+        if (this.buttonFlagLeft && Input.GetKey(KeyCode.A))
         {
             moving();
         }
-        if (this.buttonFlagRight && (Input.GetKey(KeyCode.RightArrow) ^ Input.GetKey(KeyCode.D)))
+        if (this.buttonFlagRight && Input.GetKey(KeyCode.D))
         {
             moving();
         }
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
         /*
         // if direction keys are up
-        if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
             this.movingTriggerDeltaTime = 0.0f;
         }
