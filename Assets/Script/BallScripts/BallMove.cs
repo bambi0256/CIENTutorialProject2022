@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Script.BallScripts
 {
@@ -30,7 +27,6 @@ namespace Script.BallScripts
         {
             Move();
             CheckDeath();
-            Debug.Log(BallDir);
         }
 
         private void Move()
