@@ -1,4 +1,4 @@
-using Script.UIScripts;
+using UIScripts;
 using UnityEngine;
 
 

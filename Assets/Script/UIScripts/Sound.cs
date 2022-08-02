@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Script.UIScripts
+namespace UIScripts
 {
     public class Sound : MonoBehaviour
     {

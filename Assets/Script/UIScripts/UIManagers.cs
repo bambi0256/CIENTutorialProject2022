@@ -2,7 +2,7 @@ using UnityEngine;
 
 // ���� UI�� ��� �����ϰ� ������ �� �ֵ��� �ϴ� UI �Ŵ���
 
-namespace Script.UIScripts
+namespace UIScripts
 {
     public class UIManagers : MonoBehaviour
     {

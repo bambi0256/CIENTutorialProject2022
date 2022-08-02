@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Script.PlayerScripts
+namespace PlayerScripts
 {
     public class PlayerFront : MonoBehaviour
     {

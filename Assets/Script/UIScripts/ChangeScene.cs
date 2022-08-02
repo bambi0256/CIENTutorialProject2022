@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Script.UIScripts
+namespace UIScripts
 {
     public class ChangeScene : MonoBehaviour
     {
