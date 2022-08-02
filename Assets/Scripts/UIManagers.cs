@@ -47,5 +47,4 @@ public class UIManagers : MonoBehaviour
         Application.Quit();
 #endif
     }
- 
 }
