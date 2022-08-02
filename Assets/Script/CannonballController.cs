@@ -29,8 +29,9 @@ public class CannonballController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Destroy(gameObject);
-
-        Debug.Log("col");
+        if (other.gameObject.tag == "Anchor" || other.gameObject.tag == "Obstruction")
+        {
+            Destroy(gameObject);
+        }
     }
 }

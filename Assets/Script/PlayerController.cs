@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Vector3 target_position;
-    private Vector3 pre_position;
-    [SerializeField] private float tile_length = 1.0f;
+    private Vector3 targetPosition;
+    private Vector3 prePosition;
+    [SerializeField] private float tileLength = 1.0f;
     [SerializeField] private float speed = 0.1f;
     [SerializeField] private float movingTriggerTime = 0.2f;
     [SerializeField] private float movingDelayTime = 0.2f;
@@ -17,52 +17,71 @@ public class PlayerController : MonoBehaviour
     private bool buttonFlagDown = false;
     private bool buttonFlagLeft = false;
     private bool buttonFlagRight = false;
+
+    private bool cannonballShot = false;
+    private float shotDeltaTime = 0.0f;
     
     // Start is called before the first frame update
     void Start()
     {
         playerTurn(180.0f);
+        this.targetPosition.x = transform.position.x;
+        this.targetPosition.y = transform.position.y;
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (Mathf.Approximately(transform.position.x, target_position.x) && Mathf.Approximately(transform.position.y, target_position.y))
+        if (cannonballShot)
         {
-            this.pre_position = transform.position;
+            shotDeltaTime += Time.deltaTime;
 
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (shotDeltaTime > 0.7f)
+            {
+                cannonballShot = false;
+                shotDeltaTime = 0.0f;
+            }
+
+            return;
+        }
+        
+        if (Mathf.Approximately(transform.position.x, targetPosition.x) && Mathf.Approximately(transform.position.y, targetPosition.y))
+        {
+            this.prePosition = transform.position;
+
+            if (Input.GetKeyDown(KeyCode.UpArrow) ^ Input.GetKeyDown(KeyCode.W))
             {
                 playerTurn(0.0f);
                 this.buttonFlagUp = true;
 
-                this.target_position.y += this.tile_length;
+                this.targetPosition.y += this.tileLength;
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKeyDown(KeyCode.DownArrow) ^ Input.GetKeyDown(KeyCode.S))
             {
                 playerTurn(180.0f);
                 this.buttonFlagDown = true;
 
-                this.target_position.y -= this.tile_length;
+                this.targetPosition.y -= this.tileLength;
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) ^ Input.GetKeyDown(KeyCode.A))
             {
                 playerTurn(90.0f);
                 this.buttonFlagLeft = true;
 
-                this.target_position.x -= this.tile_length;
+                this.targetPosition.x -= this.tileLength;
             }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.RightArrow) ^ Input.GetKeyDown(KeyCode.D))
             {
                 playerTurn(-90.0f);
                 this.buttonFlagRight = true;
                 
-                this.target_position.x += this.tile_length;
+                this.targetPosition.x += this.tileLength;
             }
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, this.target_position, this.speed);
+            transform.position = Vector3.MoveTowards(transform.position, this.targetPosition, this.speed);
         }
 
 
@@ -118,14 +137,14 @@ public class PlayerController : MonoBehaviour
 
         if (this.movingTriggerDeltaTime > this.movingTriggerTime)
         {
-            if (Mathf.Approximately(transform.position.x, target_position.x) && Mathf.Approximately(transform.position.y, target_position.y))
+            if (Mathf.Approximately(transform.position.x, targetPosition.x) && Mathf.Approximately(transform.position.y, targetPosition.y))
             {
                 if (this.movingDelayDeltaTime > this.movingDelayTime)
                     setTargetPosition();
             }
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, this.target_position, this.speed);
+                transform.position = Vector3.MoveTowards(transform.position, this.targetPosition, this.speed);
 
                 this.movingDelayDeltaTime = 0.0f;
             }
@@ -136,25 +155,18 @@ public class PlayerController : MonoBehaviour
     private void setTargetPosition()
     {
         if (buttonFlagUp)
-            this.target_position.y += this.tile_length;
+            this.targetPosition.y += this.tileLength;
         else if (buttonFlagDown)
-            this.target_position.y -= this.tile_length;
+            this.targetPosition.y -= this.tileLength;
         else if (buttonFlagLeft)
-            this.target_position.x -= this.tile_length;
+            this.targetPosition.x -= this.tileLength;
         else if (buttonFlagRight)
-            this.target_position.x += this.tile_length;
+            this.targetPosition.x += this.tileLength;
     }
 
 
-    void OnTriggerEnter2D(Collider2D other) 
+    public void getShot()
     {
-        if (other.gameObject.tag == "Obstruction")
-        {
-            this.target_position = this.pre_position;
-        }
-        else if (other.gameObject.tag == "Portal")
-        {
-            Debug.Log("move another portal");
-        }
+        cannonballShot = true;
     }
 }
