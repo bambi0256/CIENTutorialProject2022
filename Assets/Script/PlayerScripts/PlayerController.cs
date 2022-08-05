@@ -53,30 +53,43 @@ namespace PlayerScripts
                 if (Input.GetKeyDown(KeyCode.W))
                 {
                     playerTurn(0.0f);
+
+                    buttonFlagFalse();
+                    this.movingTriggerDeltaTime = 0.0f;
+                    
                     this.buttonFlagUp = true;
 
-                    this.targetPosition.y += this.tileLength;
+                    setTargetPosition();
                 }
                 else if (Input.GetKeyDown(KeyCode.S))
                 {
                     playerTurn(180.0f);
+
+                    buttonFlagFalse();
+                    this.movingTriggerDeltaTime = 0.0f;
+
                     this.buttonFlagDown = true;
 
-                    this.targetPosition.y -= this.tileLength;
+                    setTargetPosition();
                 }
                 else if (Input.GetKeyDown(KeyCode.A))
                 {
                     playerTurn(90.0f);
+                    buttonFlagFalse();
+                    this.movingTriggerDeltaTime = 0.0f;
                     this.buttonFlagLeft = true;
 
-                    this.targetPosition.x -= this.tileLength;
+                    setTargetPosition();
                 }
                 else if (Input.GetKeyDown(KeyCode.D))
                 {
                     playerTurn(-90.0f);
+                    buttonFlagFalse();
+                    this.movingTriggerDeltaTime = 0.0f;
+
                     this.buttonFlagRight = true;
                 
-                    this.targetPosition.x += this.tileLength;
+                    setTargetPosition();
                 }
             }
             else
@@ -115,8 +128,6 @@ namespace PlayerScripts
         private void playerTurn(float direction)
         {
             transform.rotation = Quaternion.Euler(0, 0, direction);
-            buttonFlagFalse();
-            this.movingTriggerDeltaTime = 0.0f;
         }
         
         private void buttonFlagFalse()

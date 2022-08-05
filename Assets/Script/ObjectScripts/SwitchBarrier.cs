@@ -26,6 +26,7 @@ namespace Script.ObjectScripts
                 this.switchPreState = this.switchOn;
 
                 setSprite();
+                toggleTag();
             }
         }
 
@@ -36,6 +37,16 @@ namespace Script.ObjectScripts
                 this.spriteRenderer.sprite = this.sprites[1];
             else
                 this.spriteRenderer.sprite = this.sprites[0];
+        }
+
+
+        private void toggleTag()
+        {
+            if (gameObject.tag == "SwitchBarrier")
+                gameObject.tag = "Block";
+            else if (gameObject.tag == "Block")
+                gameObject.tag = "SwitchBarrier";
+
         }
     }
 }

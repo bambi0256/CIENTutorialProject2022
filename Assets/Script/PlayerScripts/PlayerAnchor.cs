@@ -7,11 +7,13 @@ namespace Script.PlayerScripts
     {
         //[SerializeField] private bool isCannonball = false;
         private GameObject parent;
+        private PlayerController playerController;
 
         // Start is called before the first frame update
         private void Start()
         {
             parent = transform.parent.gameObject;
+            playerController = parent.GetComponent<PlayerController>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -20,7 +22,7 @@ namespace Script.PlayerScripts
             {
                 //this.isCannonball = true;
 
-                parent.GetComponent<PlayerController>().setCannonballHit();
+                playerController.setCannonballHit();
             }
         }
     }

@@ -7,6 +7,14 @@ namespace PlayerScripts
         [SerializeField] private bool isBlock = false;
         [SerializeField] private bool isPortal = false;
         [SerializeField] private bool isBreakable = false;
+        private GameObject parent;
+
+
+        private void Start()
+        {
+            parent = transform.parent.gameObject;
+        }
+
 
         private void OnTriggerStay2D(Collider2D other)
         {
