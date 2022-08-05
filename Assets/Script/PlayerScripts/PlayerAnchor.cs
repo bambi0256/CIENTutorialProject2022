@@ -5,7 +5,7 @@ namespace Script.PlayerScripts
 {
     public class PlayerAnchor : MonoBehaviour
     {
-        [SerializeField] private bool isCannonball = false;
+        //[SerializeField] private bool isCannonball = false;
         private GameObject parent;
 
         // Start is called before the first frame update
@@ -18,9 +18,9 @@ namespace Script.PlayerScripts
         {
             if (other.gameObject.CompareTag("Cannonball"))
             {
-                this.isCannonball = true;
+                //this.isCannonball = true;
 
-                parent.GetComponent<PlayerController>().getShot();
+                parent.GetComponent<PlayerController>().setCannonballHit();
             }
         }
     }

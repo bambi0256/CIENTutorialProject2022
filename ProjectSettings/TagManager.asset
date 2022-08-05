@@ -5,6 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - Front
+  - Anchor
+  - Cannonball
+  - Turret
+  - Block
+  - Portal
+  - Switch
+  - Circuit
+  - SwitchBarrier
   layers:
   - Default
   - TransparentFX

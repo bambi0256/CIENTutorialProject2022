@@ -10,7 +10,7 @@ namespace PlayerScripts
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Obstruction"))
+            if (other.gameObject.CompareTag("Block"))
             {
                 isBlock = true;
             }
@@ -23,7 +23,7 @@ namespace PlayerScripts
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Obstruction"))
+            if (other.gameObject.CompareTag("Block"))
             {
                 isBlock = false;
             }

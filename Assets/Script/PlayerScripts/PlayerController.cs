@@ -7,9 +7,9 @@ namespace PlayerScripts
         private Vector3 targetPosition;
         private Vector3 prePosition;
         [SerializeField] private float tileLength = 1.0f;
-        [SerializeField] private float speed = 0.1f;
-        [SerializeField] private float movingTriggerTime = 0.2f;
-        [SerializeField] private float movingDelayTime = 0.2f;
+        [SerializeField] private float speed;
+        [SerializeField] private float movingTriggerTime;
+        [SerializeField] private float movingDelayTime;
         private float movingTriggerDeltaTime;
         private float movingDelayDeltaTime;
 
@@ -18,12 +18,16 @@ namespace PlayerScripts
         private bool buttonFlagLeft;
         private bool buttonFlagRight;
 
-        private bool cannonballShot;
-        private float shotDeltaTime;
+        private bool cannonballHit;
+        private float hitDeltaTime;
     
         // Start is called before the first frame update
         private void Start()
         {
+            this.speed = 0.1f;
+            this.movingTriggerTime = 0.5f;
+            this.movingDelayTime = 0.1f;
+
             playerTurn(180.0f);
             var position = transform.position;
             this.targetPosition.x = position.x;
@@ -32,13 +36,13 @@ namespace PlayerScripts
         
         private void Update()
         {
-            if (cannonballShot)
+            if (this.cannonballHit)
             {
-                shotDeltaTime += Time.deltaTime;
+                this.hitDeltaTime += Time.deltaTime;
 
-                if (!(shotDeltaTime > 0.7f)) return;
-                cannonballShot = false;
-                shotDeltaTime = 0.0f;
+                if (!(this.hitDeltaTime > 0.7f)) return;
+                cannonballHit = false;
+                hitDeltaTime = 0.0f;
                 return;
             }
         
@@ -154,9 +158,9 @@ namespace PlayerScripts
                 this.targetPosition.x += this.tileLength;
         }
         
-        public void getShot()
+        public void setCannonballHit()
         {
-            cannonballShot = true;
+            this.cannonballHit = true;
         }
     }
 }
