@@ -6,6 +6,7 @@ namespace Script.ObjectScripts
     {
         public bool switchOn;
         private bool switchPreState;
+        private int defaultLayer;
 
         // 0 is off state, 1 is on state
         [SerializeField] private Sprite[] sprites = new Sprite[2];
@@ -16,6 +17,7 @@ namespace Script.ObjectScripts
         {
             this.spriteRenderer = GetComponent<SpriteRenderer>();
             setSprite();
+            defaultLayer = gameObject.layer;
         }
 
         // Update is called once per frame
@@ -26,7 +28,7 @@ namespace Script.ObjectScripts
                 this.switchPreState = this.switchOn;
 
                 setSprite();
-                toggleTag();
+                toggleLayer();
             }
         }
 
@@ -40,12 +42,13 @@ namespace Script.ObjectScripts
         }
 
 
-        private void toggleTag()
+        private void toggleLayer()
         {
-            if (gameObject.tag == "SwitchBarrier")
-                gameObject.tag = "Block";
-            else if (gameObject.tag == "Block")
-                gameObject.tag = "SwitchBarrier";
+            // layer 8 is Obstruction
+            if (gameObject.layer == defaultLayer)
+                gameObject.layer = 8;
+            else if (gameObject.layer == 8)
+                gameObject.layer = defaultLayer;
 
         }
     }

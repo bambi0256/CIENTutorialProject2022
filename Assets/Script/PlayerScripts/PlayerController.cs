@@ -12,7 +12,10 @@ namespace PlayerScripts
         [SerializeField] private float movingDelayTime;
         private float movingTriggerDeltaTime;
         private float movingDelayDeltaTime;
+        private float turnDelayTime = 0.02f;
+        private float turnDelayDeltaTime;
 
+        private bool keyDownFlag;
         private bool buttonFlagUp;
         private bool buttonFlagDown;
         private bool buttonFlagLeft;
@@ -20,6 +23,8 @@ namespace PlayerScripts
 
         private bool cannonballHit;
         private float hitDeltaTime;
+
+        [SerializeField] private bool isObstruct;
     
         // Start is called before the first frame update
         private void Start()
@@ -36,6 +41,7 @@ namespace PlayerScripts
         
         private void Update()
         {
+            // if player is hit by cannonball, player stun
             if (this.cannonballHit)
             {
                 this.hitDeltaTime += Time.deltaTime;
@@ -46,55 +52,47 @@ namespace PlayerScripts
                 return;
             }
         
-            if (Mathf.Approximately(transform.position.x, targetPosition.x) && Mathf.Approximately(transform.position.y, targetPosition.y))
-            {
-                this.prePosition = transform.position;
-
-                if (Input.GetKeyDown(KeyCode.W))
-                {
-                    playerTurn(0.0f);
-
-                    buttonFlagFalse();
-                    this.movingTriggerDeltaTime = 0.0f;
-                    
-                    this.buttonFlagUp = true;
-
-                    setTargetPosition();
-                }
-                else if (Input.GetKeyDown(KeyCode.S))
-                {
-                    playerTurn(180.0f);
-
-                    buttonFlagFalse();
-                    this.movingTriggerDeltaTime = 0.0f;
-
-                    this.buttonFlagDown = true;
-
-                    setTargetPosition();
-                }
-                else if (Input.GetKeyDown(KeyCode.A))
-                {
-                    playerTurn(90.0f);
-                    buttonFlagFalse();
-                    this.movingTriggerDeltaTime = 0.0f;
-                    this.buttonFlagLeft = true;
-
-                    setTargetPosition();
-                }
-                else if (Input.GetKeyDown(KeyCode.D))
-                {
-                    playerTurn(-90.0f);
-                    buttonFlagFalse();
-                    this.movingTriggerDeltaTime = 0.0f;
-
-                    this.buttonFlagRight = true;
-                
-                    setTargetPosition();
-                }
-            }
-            else
+            //if moving, keep moving
+            if (!(Mathf.Approximately(transform.position.x, targetPosition.x) && Mathf.Approximately(transform.position.y, targetPosition.y)))
             {
                 transform.position = Vector3.MoveTowards(transform.position, this.targetPosition, this.speed);
+                return;
+            }
+
+
+            if (this.keyDownFlag)
+            {
+                this.turnDelayDeltaTime += Time.deltaTime;
+                if (!(turnDelayDeltaTime > turnDelayTime)) return;
+                setTargetPosition();
+                this.keyDownFlag = false;
+                this.turnDelayDeltaTime = 0;
+            }
+
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                playerTurn(0.0f);
+                keyDownInitialize();
+                this.buttonFlagUp = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                playerTurn(180.0f);
+                keyDownInitialize();
+                this.buttonFlagDown = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.A))
+            {
+                playerTurn(90.0f);
+                keyDownInitialize();
+                this.buttonFlagLeft = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                playerTurn(-90.0f);
+                keyDownInitialize();
+                this.buttonFlagRight = true;
             }
 
 
@@ -114,6 +112,18 @@ namespace PlayerScripts
             {
                 moving();
             }
+
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("key E");
+            }
+
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("space");
+            }
         
 
             /*
@@ -128,6 +138,14 @@ namespace PlayerScripts
         private void playerTurn(float direction)
         {
             transform.rotation = Quaternion.Euler(0, 0, direction);
+        }
+
+
+        private void keyDownInitialize()
+        {
+            buttonFlagFalse();
+            this.movingTriggerDeltaTime = 0.0f;
+            this.keyDownFlag = true;
         }
         
         private void buttonFlagFalse()
@@ -159,6 +177,10 @@ namespace PlayerScripts
         
         private void setTargetPosition()
         {
+            this.prePosition = transform.position;
+
+            if (isObstruct) return;
+
             if (buttonFlagUp)
                 this.targetPosition.y += this.tileLength;
             else if (buttonFlagDown)
@@ -172,6 +194,12 @@ namespace PlayerScripts
         public void setCannonballHit()
         {
             this.cannonballHit = true;
+        }
+
+
+        public void setIsObstruct(bool front)
+        {
+            this.isObstruct = front;
         }
     }
 }
