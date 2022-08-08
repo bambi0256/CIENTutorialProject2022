@@ -16,7 +16,7 @@ namespace Script.ObjectScripts
         private void Start()
         {
             this.barrierScript = switchBarrier.GetComponent<SwitchBarrier>();
-            this.barrierScript.switchOn = this.switchOn;
+            this.barrierScript.setSwitchOn(this.switchOn);
             this.spriteRenderer = GetComponent<SpriteRenderer>();
             setSprite();
         }
@@ -46,7 +46,7 @@ namespace Script.ObjectScripts
         private void switchToggle()
         {
             this.switchOn = this.switchOn ^ true;
-            this.barrierScript.switchOn = this.switchOn;
+            this.barrierScript.setSwitchOn(this.switchOn);
         }
 
 

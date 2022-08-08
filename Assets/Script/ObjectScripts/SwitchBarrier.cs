@@ -4,7 +4,7 @@ namespace Script.ObjectScripts
 {
     public class SwitchBarrier : MonoBehaviour
     {
-        public bool switchOn;
+        private bool switchOn;
         private bool switchPreState;
         private int defaultLayer;
 
@@ -50,6 +50,12 @@ namespace Script.ObjectScripts
             else if (gameObject.layer == 8)
                 gameObject.layer = defaultLayer;
 
+        }
+
+
+        public void setSwitchOn(bool switchState)
+        {
+            this.switchOn = switchState;
         }
     }
 }

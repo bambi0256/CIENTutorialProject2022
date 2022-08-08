@@ -25,6 +25,16 @@ namespace PlayerScripts
         private float hitDeltaTime;
 
         [SerializeField] private bool isObstruct;
+
+        private GameObject frontObject;
+        private bool isExistFrontObject;
+        private bool isInteracting;
+        private float interactDelayTime;
+
+        [SerializeField] float breakableDelayTime = 1.0f;
+        [SerializeField] float turretDelayTime = 1.0f;
+
+        private float delayDeltaTime;
     
         // Start is called before the first frame update
         private void Start()
@@ -47,9 +57,18 @@ namespace PlayerScripts
                 this.hitDeltaTime += Time.deltaTime;
 
                 if (!(this.hitDeltaTime > 0.7f)) return;
-                cannonballHit = false;
-                hitDeltaTime = 0.0f;
-                return;
+                this.cannonballHit = false;
+                this.hitDeltaTime = 0.0f;
+            }
+
+            // if player is interacting
+            if (isInteracting)
+            {
+                this.delayDeltaTime += Time.deltaTime;
+
+                if (!(this.delayDeltaTime > interactDelayTime)) return;
+                interact();
+                this.delayDeltaTime = 0.0f;
             }
         
             //if moving, keep moving
@@ -59,7 +78,6 @@ namespace PlayerScripts
                 return;
             }
 
-
             if (this.keyDownFlag)
             {
                 this.turnDelayDeltaTime += Time.deltaTime;
@@ -68,7 +86,6 @@ namespace PlayerScripts
                 this.keyDownFlag = false;
                 this.turnDelayDeltaTime = 0;
             }
-
 
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -116,7 +133,7 @@ namespace PlayerScripts
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("key E");
+                checkFrontObject();
             }
 
 
@@ -134,6 +151,7 @@ namespace PlayerScripts
         }
         */
         }
+
         
         private void playerTurn(float direction)
         {
@@ -179,15 +197,15 @@ namespace PlayerScripts
         {
             this.prePosition = transform.position;
 
-            if (isObstruct) return;
+            if (this.isObstruct) return;
 
-            if (buttonFlagUp)
+            if (this.buttonFlagUp)
                 this.targetPosition.y += this.tileLength;
-            else if (buttonFlagDown)
+            else if (this.buttonFlagDown)
                 this.targetPosition.y -= this.tileLength;
-            else if (buttonFlagLeft)
+            else if (this.buttonFlagLeft)
                 this.targetPosition.x -= this.tileLength;
-            else if (buttonFlagRight)
+            else if (this.buttonFlagRight)
                 this.targetPosition.x += this.tileLength;
         }
         
@@ -200,6 +218,41 @@ namespace PlayerScripts
         public void setIsObstruct(bool front)
         {
             this.isObstruct = front;
+        }
+
+
+        public void setFrontObject(GameObject front)
+        {
+            this.frontObject = front;
+            this.isExistFrontObject = true;
+        }
+
+
+        public void resetFrontObject()
+        {
+            this.isExistFrontObject = false;
+        }
+
+
+        private void checkFrontObject()
+        {
+            if (!isExistFrontObject) return;
+
+            this.isInteracting = true;
+
+            if (this.frontObject.CompareTag("Breakable"))
+            {
+                this.interactDelayTime = breakableDelayTime;
+            }
+        }
+
+
+        private void interact()
+        {
+            if (this.frontObject.CompareTag("Breakable"))
+                Destroy(this.frontObject);
+
+            this.isInteracting = false;
         }
     }
 }

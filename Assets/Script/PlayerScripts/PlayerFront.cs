@@ -4,9 +4,6 @@ namespace PlayerScripts
 {
     public class PlayerFront : MonoBehaviour
     {
-        [SerializeField] private bool isBlock = false;
-        [SerializeField] private bool isPortal = false;
-        [SerializeField] private bool isBreakable = false;
         private GameObject parent;
         private PlayerController playerController;
         private GameObject front;
@@ -27,17 +24,10 @@ namespace PlayerScripts
             if (front.layer == 8)
                 playerController.setIsObstruct(true);
 
-
-
-
-            if (other.gameObject.CompareTag("Block"))
-            {
-                isBlock = true;
-            }
-            else if (other.gameObject.CompareTag("Portal"))
-            {
-                isPortal = true;
-            }
+            if (!(front.CompareTag("Breakable") || front.CompareTag("Portal") || front.CompareTag("Turret")))
+                return;
+            
+            playerController.setFrontObject(front);
         }
 
 
@@ -50,14 +40,10 @@ namespace PlayerScripts
                 playerController.setIsObstruct(false);
             
 
-            if (other.gameObject.CompareTag("Block"))
-            {
-                isBlock = false;
-            }
-            else if (other.gameObject.CompareTag("Portal"))
-            {
-                isPortal = false;
-            }
+            if (!(front.CompareTag("Breakable") || front.CompareTag("Portal") || front.CompareTag("Turret")))
+                return;
+
+            playerController.resetFrontObject();
         }
     }
 }
