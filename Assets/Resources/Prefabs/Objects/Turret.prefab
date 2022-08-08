@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cannonballPrefab: {fileID: 7499134088340898952, guid: 3d4070178b8cc4cfda7a4aeed007e58d, type: 3}
+  isPause: 0
+  pauseDelayTime: 3
 --- !u!61 &301306528126979635
 BoxCollider2D:
   m_ObjectHideFlags: 0

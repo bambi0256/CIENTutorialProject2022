@@ -45,9 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351cfc8de96a24a76b72a9ca80955ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBlock: 0
-  isPortal: 0
-  isBreakable: 0
 --- !u!61 &2480691244721001764
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -196,6 +193,9 @@ MonoBehaviour:
   speed: 0.1
   movingTriggerTime: 0.5
   movingDelayTime: 0.1
+  isObstruct: 0
+  breakableDelayTime: 1
+  turretDelayTime: 1
 --- !u!1 &6315000276761985039
 GameObject:
   m_ObjectHideFlags: 0

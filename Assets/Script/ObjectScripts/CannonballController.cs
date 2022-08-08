@@ -8,11 +8,13 @@ namespace Script.ObjectScripts
         // [SerializeField] private float mapHeight;
         [SerializeField] private float tileLength = 1.0f;
         private float speed;
+        private bool isFirstTurret;
 
 
         private void Start()
         {
             this.speed = 1.0f;
+            this.isFirstTurret = true;
         }
 
 
@@ -44,13 +46,20 @@ namespace Script.ObjectScripts
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Turret")) return;
+            if (other.gameObject.CompareTag("Turret") && isFirstTurret) return;
 
             // layer 8 is obstruction
             if (other.gameObject.layer == 8)
             {
                 Destroy(gameObject);
             }
+        }
+
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Turret"))
+                this.isFirstTurret = false;
         }
     }
 }

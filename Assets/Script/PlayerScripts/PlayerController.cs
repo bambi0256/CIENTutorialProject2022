@@ -1,3 +1,4 @@
+using Script.ObjectScripts;
 using UnityEngine;
 
 namespace PlayerScripts
@@ -31,8 +32,8 @@ namespace PlayerScripts
         private bool isInteracting;
         private float interactDelayTime;
 
-        [SerializeField] float breakableDelayTime = 1.0f;
-        [SerializeField] float turretDelayTime = 1.0f;
+        [SerializeField] float breakableDelayTime;
+        [SerializeField] float turretDelayTime;
 
         private float delayDeltaTime;
     
@@ -42,6 +43,9 @@ namespace PlayerScripts
             this.speed = 0.1f;
             this.movingTriggerTime = 0.5f;
             this.movingDelayTime = 0.1f;
+
+            this.breakableDelayTime = 1.0f;
+            this.turretDelayTime = 1.0f;
 
             playerTurn(180.0f);
             var position = transform.position;
@@ -241,9 +245,9 @@ namespace PlayerScripts
             this.isInteracting = true;
 
             if (this.frontObject.CompareTag("Breakable"))
-            {
-                this.interactDelayTime = breakableDelayTime;
-            }
+                this.interactDelayTime = this.breakableDelayTime;
+            else if (this.frontObject.CompareTag("Turret"))
+                this.interactDelayTime = this.turretDelayTime;
         }
 
 
@@ -251,6 +255,10 @@ namespace PlayerScripts
         {
             if (this.frontObject.CompareTag("Breakable"))
                 Destroy(this.frontObject);
+            else if (this.frontObject.CompareTag("Turret"))
+            {
+                this.frontObject.GetComponent<TurretController>().setIsPause();
+            }
 
             this.isInteracting = false;
         }
