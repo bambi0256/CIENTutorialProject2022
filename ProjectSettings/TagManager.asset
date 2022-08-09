@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - Front
+  - Anchor
+  - Portal
+  - Obstruction
+  - Tile
+  - Cannonball
   layers:
   - Default
   - TransparentFX
