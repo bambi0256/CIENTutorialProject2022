@@ -34,6 +34,7 @@ namespace PlayerScripts
 
         [SerializeField] float breakableDelayTime;
         [SerializeField] float turretDelayTime;
+        [SerializeField] float portalDelayTime;
 
         private float delayDeltaTime;
     
@@ -46,6 +47,7 @@ namespace PlayerScripts
 
             this.breakableDelayTime = 1.0f;
             this.turretDelayTime = 1.0f;
+            this.portalDelayTime = 1.0f;
 
             playerTurn(180.0f);
             var position = transform.position;
@@ -248,6 +250,8 @@ namespace PlayerScripts
                 this.interactDelayTime = this.breakableDelayTime;
             else if (this.frontObject.CompareTag("Turret"))
                 this.interactDelayTime = this.turretDelayTime;
+            else if (this.frontObject.CompareTag("InPortal"))
+                this.interactDelayTime = this.portalDelayTime;
         }
 
 
@@ -258,6 +262,11 @@ namespace PlayerScripts
             else if (this.frontObject.CompareTag("Turret"))
             {
                 this.frontObject.GetComponent<TurretController>().setIsPause();
+            }
+            else if (this.frontObject.CompareTag("InPortal"))
+            {
+                transform.position = this.frontObject.GetComponent<InPortal>().getDestinationPosition();
+                this.targetPosition = transform.position;
             }
 
             this.isInteracting = false;

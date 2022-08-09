@@ -24,7 +24,7 @@ namespace PlayerScripts
             if (front.layer == 8)
                 playerController.setIsObstruct(true);
 
-            if (!(front.CompareTag("Breakable") || front.CompareTag("Portal") || front.CompareTag("Turret")))
+            if (!(front.CompareTag("Breakable") || front.CompareTag("InPortal") || front.CompareTag("Turret")))
                 return;
             
             playerController.setFrontObject(front);
@@ -40,7 +40,7 @@ namespace PlayerScripts
                 playerController.setIsObstruct(false);
             
 
-            if (!(front.CompareTag("Breakable") || front.CompareTag("Portal") || front.CompareTag("Turret")))
+            if (!(front.CompareTag("Breakable") || front.CompareTag("InPortal") || front.CompareTag("Turret")))
                 return;
 
             playerController.resetFrontObject();
