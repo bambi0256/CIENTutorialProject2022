@@ -29,7 +29,7 @@ namespace PlayerScripts
             else if (!other.gameObject.CompareTag("Cannonball")) return;
             isCannonball = true;
 
-            parent.GetComponent<PlayerController>().getShot();
+            parent.GetComponent<PlayerController>().setCannonballHit();
         }
 
         private void OnTriggerExit2D(Collider2D other)
