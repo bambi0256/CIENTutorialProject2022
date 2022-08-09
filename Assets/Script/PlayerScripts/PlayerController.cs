@@ -65,6 +65,9 @@ namespace PlayerScripts
                 if (!(this.hitDeltaTime > 0.7f)) return;
                 this.cannonballHit = false;
                 this.hitDeltaTime = 0.0f;
+
+                this.isInteracting = false;
+                this.delayDeltaTime = 0.0f;
             }
 
             // if player is interacting
