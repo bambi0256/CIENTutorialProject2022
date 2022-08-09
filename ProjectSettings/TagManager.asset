@@ -7,10 +7,16 @@ TagManager:
   - Ball
   - Front
   - Anchor
+  - Cannonball
+  - Turret
+  - Block
   - Portal
+  - Switch
+  - Circuit
+  - SwitchBarrier
+  - Breakable
   - Obstruction
   - Tile
-  - Cannonball
   layers:
   - Default
   - TransparentFX
@@ -18,10 +24,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Anchor
+  - Front
+  - Obstruct
+  - Background
   - 
   - 
   - 
