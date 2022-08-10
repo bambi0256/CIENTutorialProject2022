@@ -1,3 +1,4 @@
+using System;
 using UIScripts;
 using UnityEngine;
 
@@ -20,12 +21,19 @@ using UnityEngine;
         private static GameManager m_instance;
 
 
+        public static Sprite[] TileSprite;
+
         private void Awake()
         {
             if (instance != this)
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void Start()
+        {
+            TileSprite = Resources.LoadAll<Sprite>("RoadSp");
         }
 
         public void EndGame()

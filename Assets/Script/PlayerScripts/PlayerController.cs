@@ -258,6 +258,7 @@ namespace PlayerScripts
         }
 
 
+        // ReSharper disable Unity.PerformanceAnalysis
         private void interact()
         {
             if (this.frontObject.CompareTag("Breakable"))
