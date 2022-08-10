@@ -13,6 +13,18 @@ namespace PlayerScripts
         [SerializeField] private float movingDelayTime;
         private float movingTriggerDeltaTime;
         private float movingDelayDeltaTime;
+        private float movingSpeed;
+        private float moveSpeed;
+        private bool isMoving;
+
+        private bool isShiftDown;
+        private bool isAcceleration;
+        [SerializeField] private float accelDelayTime;
+        [SerializeField] private float accelDuration;
+        private float accelDurationDeltaTime;
+        private float playerAccelDelayTime;
+        private float playerMovingDelayTime;
+
         private float turnDelayTime = 0.02f;
         private float turnDelayDeltaTime;
 
@@ -32,28 +44,36 @@ namespace PlayerScripts
         private bool isInteracting;
         private float interactDelayTime;
 
+        private float delayDeltaTime;
+
         [SerializeField] float breakableDelayTime;
         [SerializeField] float turretDelayTime;
         [SerializeField] float portalDelayTime;
-
-        private float delayDeltaTime;
     
         // Start is called before the first frame update
         private void Start()
         {
-            this.speed = 0.1f;
-            this.movingTriggerTime = 0.5f;
-            this.movingDelayTime = 0.1f;
+            this.moveSpeed = 0.1f;
+            this.movingSpeed = 0.2f;
+            this.speed = this.moveSpeed;
+            this.movingTriggerTime = 0.2f;
+            this.movingDelayTime = 0.13f;
+            this.playerMovingDelayTime = this.movingDelayTime;
 
             this.breakableDelayTime = 1.0f;
             this.turretDelayTime = 1.0f;
             this.portalDelayTime = 1.0f;
+
+            this.accelDelayTime = 0.5f;
+            this.accelDuration = 30.0f;
+            this.playerAccelDelayTime = 0.06f;
 
             playerTurn(180.0f);
             var position = transform.position;
             this.targetPosition.x = position.x;
             this.targetPosition.y = position.y;
         }
+
         
         private void Update()
         {
@@ -67,6 +87,32 @@ namespace PlayerScripts
                 this.hitDeltaTime = 0.0f;
 
                 this.isInteracting = false;
+                this.isShiftDown = false;
+
+                this.delayDeltaTime = 0.0f;
+            }
+
+            // if player is acceleration state
+            if (this.isAcceleration)
+            {
+                this.accelDurationDeltaTime += Time.deltaTime;
+
+                if (this.accelDurationDeltaTime > this.accelDuration)
+                {
+                    this.isAcceleration = false;
+                    this.movingDelayTime = this.playerMovingDelayTime;
+                    this.accelDurationDeltaTime = 0.0f;
+                }
+
+            }
+
+            // if key down code is shift, player accelerate
+            if (this.isShiftDown)
+            {
+                this.delayDeltaTime += Time.deltaTime;
+
+                if (!(this.delayDeltaTime > accelDelayTime)) return;
+                acceleration();
                 this.delayDeltaTime = 0.0f;
             }
 
@@ -83,6 +129,9 @@ namespace PlayerScripts
             //if moving, keep moving
             if (!(Mathf.Approximately(transform.position.x, targetPosition.x) && Mathf.Approximately(transform.position.y, targetPosition.y)))
             {
+                if (isMoving) this.speed = this.movingSpeed;
+                else this.speed = this.moveSpeed;
+
                 transform.position = Vector3.MoveTowards(transform.position, this.targetPosition, this.speed);
                 return;
             }
@@ -146,6 +195,12 @@ namespace PlayerScripts
             }
 
 
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                this.isShiftDown = true;
+            }
+
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("space");
@@ -173,6 +228,7 @@ namespace PlayerScripts
             buttonFlagFalse();
             this.movingTriggerDeltaTime = 0.0f;
             this.keyDownFlag = true;
+            this.isMoving = false;
         }
         
         private void buttonFlagFalse()
@@ -189,15 +245,13 @@ namespace PlayerScripts
             this.movingDelayDeltaTime += Time.deltaTime;
 
             if (!(this.movingTriggerDeltaTime > this.movingTriggerTime)) return;
-            if (Mathf.Approximately(transform.position.x, targetPosition.x) && Mathf.Approximately(transform.position.y, targetPosition.y))
+            if (!(Mathf.Approximately(transform.position.x, targetPosition.x) && Mathf.Approximately(transform.position.y, targetPosition.y)))
+                return;
+            
+            if (this.movingDelayDeltaTime > this.movingDelayTime)
             {
-                if (this.movingDelayDeltaTime > this.movingDelayTime)
-                    setTargetPosition();
-            }
-            else
-            {
-                transform.position = Vector3.MoveTowards(transform.position, this.targetPosition, this.speed);
-
+                setTargetPosition();
+                this.isMoving = true;
                 this.movingDelayDeltaTime = 0.0f;
             }
         }
@@ -274,6 +328,14 @@ namespace PlayerScripts
             }
 
             this.isInteracting = false;
+        }
+
+
+        private void acceleration()
+        {
+            this.movingDelayTime = this.playerAccelDelayTime;
+            this.isAcceleration = true;
+            this.isShiftDown = false;
         }
     }
 }
