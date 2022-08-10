@@ -25,6 +25,8 @@ namespace PlayerScripts
         private float playerAccelDelayTime;
         private float playerMovingDelayTime;
 
+        private float delayDeltaTime;
+
         private float turnDelayTime = 0.02f;
         private float turnDelayDeltaTime;
 
@@ -36,6 +38,7 @@ namespace PlayerScripts
 
         private bool cannonballHit;
         private float hitDeltaTime;
+        private float stunTime;
 
         [SerializeField] private bool isObstruct;
 
@@ -43,8 +46,6 @@ namespace PlayerScripts
         private bool isExistFrontObject;
         private bool isInteracting;
         private float interactDelayTime;
-
-        private float delayDeltaTime;
 
         [SerializeField] float breakableDelayTime;
         [SerializeField] float turretDelayTime;
@@ -59,14 +60,17 @@ namespace PlayerScripts
             this.movingTriggerTime = 0.2f;
             this.movingDelayTime = 0.13f;
             this.playerMovingDelayTime = this.movingDelayTime;
-
-            this.breakableDelayTime = 1.0f;
-            this.turretDelayTime = 1.0f;
-            this.portalDelayTime = 1.0f;
+            this.turnDelayTime = 0.02f;
 
             this.accelDelayTime = 0.5f;
             this.accelDuration = 30.0f;
             this.playerAccelDelayTime = 0.06f;
+
+            this.stunTime = 0.7f;
+
+            this.breakableDelayTime = 1.0f;
+            this.turretDelayTime = 1.0f;
+            this.portalDelayTime = 1.0f;
 
             playerTurn(180.0f);
             var position = transform.position;
@@ -82,7 +86,7 @@ namespace PlayerScripts
             {
                 this.hitDeltaTime += Time.deltaTime;
 
-                if (!(this.hitDeltaTime > 0.7f)) return;
+                if (!(this.hitDeltaTime > this.stunTime)) return;
                 this.cannonballHit = false;
                 this.hitDeltaTime = 0.0f;
 

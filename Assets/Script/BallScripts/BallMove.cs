@@ -15,6 +15,8 @@ namespace Script.BallScripts
         private readonly Vector2 Down = new Vector2(0, -1);
         private readonly Vector2 Left = new Vector2(-1, 0);
 
+        private bool cannonballHit;
+
         private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -41,7 +43,24 @@ namespace Script.BallScripts
 
         private void CheckDeath()
         {
-            
+            // if ball is hit by cannonball, game over
+            if (this.cannonballHit)
+            {
+                Debug.Log("Game Over");
+            }
+        }
+
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Cannonball"))
+            {
+                this.cannonballHit = true;
+            }
+            else if (other.gameObject.CompareTag("InPortal"))
+            {
+                Debug.Log("Portal move");
+            }
         }
     }
 }

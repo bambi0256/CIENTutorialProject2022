@@ -33,20 +33,16 @@ namespace Script.ObjectScripts
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Anchor"))
+            if (other.gameObject.CompareTag("Anchor") || other.gameObject.CompareTag("Ball"))
             {
                 Destroy(gameObject);
-            }
-            else if (other.gameObject.CompareTag("Ball"))
-            {
-                //Destroy the ball
             }
         }
 
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Turret") && isFirstTurret) return;
+            if (isFirstTurret && other.gameObject.CompareTag("Turret")) return;
 
             // layer 8 is obstruction
             if (other.gameObject.layer == 8)
