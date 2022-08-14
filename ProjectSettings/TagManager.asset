@@ -17,6 +17,8 @@ TagManager:
   - Breakable
   - Obstruction
   - Tile
+  - InPortal
+  - OutPortal
   layers:
   - Default
   - TransparentFX
@@ -28,7 +30,7 @@ TagManager:
   - Front
   - Obstruct
   - Background
-  - 
+  - Ball
   - 
   - 
   - 

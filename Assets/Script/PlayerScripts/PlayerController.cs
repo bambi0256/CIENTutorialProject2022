@@ -7,7 +7,7 @@ namespace PlayerScripts
     {
         private Vector3 targetPosition;
         private Vector3 prePosition;
-        [SerializeField] private float tileLength = 1.0f;
+        [SerializeField] private float tileLength = 0.83f;
         [SerializeField] private float speed;
         [SerializeField] private float movingTriggerTime;
         [SerializeField] private float movingDelayTime;
