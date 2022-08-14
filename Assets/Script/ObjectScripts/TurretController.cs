@@ -15,7 +15,7 @@ namespace Script.ObjectScripts
 
         private void Start()
         {
-            this.pauseDelayTime = 3.0f;
+            this.pauseDelayTime = 10.0f;
         }
 
 
