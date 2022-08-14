@@ -27,7 +27,7 @@ namespace PlayerScripts
 
         private float delayDeltaTime;
 
-        private float turnDelayTime = 0.02f;
+        private float turnDelayTime;
         private float turnDelayDeltaTime;
 
         private bool keyDownFlag;
@@ -60,7 +60,7 @@ namespace PlayerScripts
             this.movingTriggerTime = 0.2f;
             this.movingDelayTime = 0.13f;
             this.playerMovingDelayTime = this.movingDelayTime;
-            this.turnDelayTime = 0.02f;
+            this.turnDelayTime = 0.05f;
 
             this.accelDelayTime = 0.5f;
             this.accelDuration = 30.0f;

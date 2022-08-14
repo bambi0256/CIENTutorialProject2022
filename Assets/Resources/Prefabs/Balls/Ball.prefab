@@ -128,7 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3713766240424124986}
   - component: {fileID: 2876193396733398866}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Anchor
   m_TagString: Ball
   m_Icon: {fileID: 0}

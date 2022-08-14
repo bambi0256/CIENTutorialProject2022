@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2480691244721001765}
   - component: {fileID: 2480691244721001764}
   - component: {fileID: 2480691244721001786}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front
   m_TagString: Front
   m_Icon: {fileID: 0}
@@ -193,6 +193,8 @@ MonoBehaviour:
   speed: 0.1
   movingTriggerTime: 0.5
   movingDelayTime: 0.1
+  accelDelayTime: 0
+  accelDuration: 0
   isObstruct: 0
   breakableDelayTime: 1
   turretDelayTime: 1
@@ -209,7 +211,7 @@ GameObject:
   - component: {fileID: 6315000276761985037}
   - component: {fileID: 6315000276761985026}
   - component: {fileID: 6315000276761985036}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Anchor
   m_TagString: Anchor
   m_Icon: {fileID: 0}
