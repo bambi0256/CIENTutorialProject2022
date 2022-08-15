@@ -103,7 +103,6 @@ GameObject:
   - component: {fileID: 6315000276623690134}
   - component: {fileID: 6315000276623690135}
   - component: {fileID: 6315000276623690133}
-  - component: {fileID: 5258778384551083482}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -197,22 +196,10 @@ MonoBehaviour:
   accelDelayTime: 0
   accelDuration: 0
   isObstruct: 0
+  RoadTile: {fileID: 234789957129044784, guid: 6468e15e0cf26cb498eedd1342c1aff9, type: 3}
   breakableDelayTime: 1
   turretDelayTime: 1
   portalDelayTime: 0
---- !u!114 &5258778384551083482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6315000276623690120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ac9fb4d33e4d464c9ec67473d4a11bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RoadTile: {fileID: 234789957129044784, guid: 6468e15e0cf26cb498eedd1342c1aff9, type: 3}
 --- !u!1 &6315000276761985039
 GameObject:
   m_ObjectHideFlags: 0

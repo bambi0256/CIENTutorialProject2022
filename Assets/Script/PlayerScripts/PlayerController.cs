@@ -208,7 +208,6 @@ namespace PlayerScripts
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("space");
                 Instantiate(RoadTile, transform.position, Quaternion.identity);
             }
         
