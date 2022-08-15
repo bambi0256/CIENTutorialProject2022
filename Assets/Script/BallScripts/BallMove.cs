@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Script.BallScripts
+namespace BallScripts
 {
     public class BallMove : MonoBehaviour
     {
@@ -23,7 +23,7 @@ namespace Script.BallScripts
             BallSpeed = 10;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             Move();
             CheckDeath();
