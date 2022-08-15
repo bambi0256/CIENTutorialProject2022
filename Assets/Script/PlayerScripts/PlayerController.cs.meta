@@ -3,7 +3,8 @@ guid: b3708ff57f31f43bb859f55c1cbc9f55
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - RoadTile: {fileID: 234789957129044784, guid: 6468e15e0cf26cb498eedd1342c1aff9, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -43,6 +43,7 @@ namespace PlayerScripts
         [SerializeField] private bool isObstruct;
 
         private GameObject frontObject;
+        public GameObject RoadTile;
         private bool isExistFrontObject;
         private bool isInteracting;
         private float interactDelayTime;
@@ -208,6 +209,7 @@ namespace PlayerScripts
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("space");
+                Instantiate(RoadTile, transform.position, Quaternion.identity);
             }
         
 
