@@ -42,7 +42,7 @@ namespace TileScripts
             if ( col.CompareTag("Ball") && col.transform.position == transform.position)
                 // 현재 위치(중앙에) 도달했을 때 공 방향 변경
             {
-                BallMove.BallDir = NextPos;
+                col.GetComponent<BallMove>().BallDir = NextPos;
             }
         }
 
