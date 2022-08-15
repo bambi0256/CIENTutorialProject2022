@@ -20,14 +20,20 @@ namespace PlayerScripts
         {
             front = other.gameObject;
 
-            // layer 8 is Obstruction
-            if (front.layer == 8)
-                playerController.setIsObstruct(true);
-
             if (!(front.CompareTag("Breakable") || front.CompareTag("InPortal") || front.CompareTag("Turret")))
                 return;
             
             playerController.setFrontObject(front);
+        }
+
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            front = other.gameObject;
+
+            // layer 8 is Obstruction
+            if (front.layer == 8)
+                playerController.setIsObstruct(true);
         }
 
 

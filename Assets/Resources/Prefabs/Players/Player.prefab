@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2480691244721001765}
   - component: {fileID: 2480691244721001764}
   - component: {fileID: 2480691244721001786}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front
   m_TagString: Front
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2480691244721001766}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6315000276623690134}
@@ -69,7 +69,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 0.7, y: 0.7}
   m_EdgeRadius: 0
 --- !u!50 &2480691244721001786
 Rigidbody2D:
@@ -103,7 +103,6 @@ GameObject:
   - component: {fileID: 6315000276623690134}
   - component: {fileID: 6315000276623690135}
   - component: {fileID: 6315000276623690133}
-  - component: {fileID: 6130048917942898836}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -167,7 +166,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f5475bb8de2e84a30884957960ecefcf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9e78bd359d8d949b080165f4f8ffd4af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -190,27 +189,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3708ff57f31f43bb859f55c1cbc9f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileLength: 1
+  tileLength: 0.83
   speed: 0.1
   movingTriggerTime: 0.5
   movingDelayTime: 0.1
+  accelDelayTime: 0
+  accelDuration: 0
   isObstruct: 0
   breakableDelayTime: 1
   turretDelayTime: 1
   portalDelayTime: 0
---- !u!114 &6130048917942898836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6315000276623690120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ac9fb4d33e4d464c9ec67473d4a11bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RoadTile: {fileID: 234789957129044784, guid: 6468e15e0cf26cb498eedd1342c1aff9, type: 3}
 --- !u!1 &6315000276761985039
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +211,7 @@ GameObject:
   - component: {fileID: 6315000276761985037}
   - component: {fileID: 6315000276761985026}
   - component: {fileID: 6315000276761985036}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Anchor
   m_TagString: Anchor
   m_Icon: {fileID: 0}
@@ -273,7 +261,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.35
 --- !u!50 &6315000276761985036
 Rigidbody2D:
   serializedVersion: 4

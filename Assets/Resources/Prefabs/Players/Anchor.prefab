@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 693208092430322022}
   - component: {fileID: 693208092430322025}
   - component: {fileID: 693208092430322023}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Anchor
   m_TagString: Anchor
   m_Icon: {fileID: 0}
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCannonball: 0
+  isTileOn: 0
 --- !u!58 &693208092430322025
 CircleCollider2D:
   m_ObjectHideFlags: 0

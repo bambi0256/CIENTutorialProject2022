@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2761863863735166302}
   - component: {fileID: 2761863863735166303}
   - component: {fileID: 2761863863735166273}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Front
   m_TagString: Front
   m_Icon: {fileID: 0}
@@ -45,9 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351cfc8de96a24a76b72a9ca80955ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isBlock: 0
-  isPortal: 0
-  isBreakable: 0
 --- !u!61 &2761863863735166303
 BoxCollider2D:
   m_ObjectHideFlags: 0
