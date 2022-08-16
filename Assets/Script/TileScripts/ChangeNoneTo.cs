@@ -27,22 +27,26 @@ namespace TileScripts
             Down = GetComponentInChildren<CheckBoolDown>();
             Left = GetComponentInChildren<CheckBoolLeft>();
             _sprite = gameObject.GetComponent<SpriteRenderer>();
+            CheckBool();
+            CheckPrePos();
         }
 
         private void FixedUpdate()
         {
-            CheckBool();
-            CheckPrePos();
-            if (nextFlag) return;
-            CheckNextPos();
+            if (!preFlag)
+            {
+                CheckBool();
+                CheckPrePos();
+            }
+            if (!nextFlag) CheckNextPos();
         }
 
         private void OnTriggerEnter2D(Collider2D col)
         {
             if ( col.CompareTag("Ball") && col.transform.position == transform.position)
-                // 현재 위치(중앙에) 도달했을 때 공 방향 변경
+                // 공이 현재 위치(중앙에) 도달했을 때 공 방향 변경
             {
-                BallMove.BallDir = NextPos;
+                col.GetComponent<BallMove>().BallDir = NextPos;
             }
         }
 
@@ -58,6 +62,7 @@ namespace TileScripts
         
         private void CheckPrePos()
         {
+            if (dirNum < 1) preFlag = false;
             if (dirNum != 1) return;
             if (Direction[1]) PrePos = 1;
             if (Direction[2]) PrePos = 2;
@@ -69,6 +74,7 @@ namespace TileScripts
 
         private void CheckNextPos()
         {
+            if (dirNum < 2) nextFlag = false;
             if (preFlag && dirNum != 2) return;
             if (Direction[1] && PrePos != 1) NextPos = 1;
             if (Direction[2] && PrePos != 2) NextPos = 2;

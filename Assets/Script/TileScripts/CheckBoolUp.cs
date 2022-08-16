@@ -13,10 +13,21 @@ namespace TileScripts
             isThere = true;
         }
 
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Tile"))
+            {
+                isThere = false;
+            }
+        }
+
         private void Update()
         {
-            if (!isThere || Flag) return;
-            Flag = true;
+            Flag = isThere switch
+            {
+                true => true,
+                false => false
+            };
         }
     }
 }
