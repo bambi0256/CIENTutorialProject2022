@@ -1,4 +1,4 @@
-using Script.BallScripts;
+using BallScripts;
 using UnityEngine;
 
 namespace Script.ObjectScripts
