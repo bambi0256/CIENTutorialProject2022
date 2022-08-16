@@ -1,3 +1,4 @@
+using Script.BallScripts;
 using UnityEngine;
 
 namespace Script.ObjectScripts
@@ -8,28 +9,10 @@ namespace Script.ObjectScripts
         private SpriteRenderer spriteRenderer;
         private bool isClose;
 
-        private bool ballEnter;
-        private float ballStayTime;
-        private float ballStayDeltaTime;
-
         // Start is called before the first frame update
         private void Start()
         {
             this.spriteRenderer = GetComponent<SpriteRenderer>();
-            this.ballStayTime = 5.0f;
-        }
-
-
-        private void Update()
-        {
-            if ((!this.isClose) && this.ballEnter)
-            {
-                ballStayDeltaTime = Time.deltaTime;
-
-                if (!(ballStayDeltaTime > ballStayTime)) return;
-
-                
-            }
         }
 
 
@@ -46,9 +29,9 @@ namespace Script.ObjectScripts
         }
 
 
-        public void setBallEnter()
+        public bool getIsClose()
         {
-            this.ballEnter = true;
+            return this.isClose;
         }
     }
 }
