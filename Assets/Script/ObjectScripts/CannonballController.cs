@@ -44,6 +44,8 @@ namespace Script.ObjectScripts
         {
             if (isFirstTurret && other.gameObject.CompareTag("Turret")) return;
 
+            if (other.gameObject.CompareTag("Hole")) return;
+
             // layer 8 is obstruction
             if (other.gameObject.layer == 8)
             {

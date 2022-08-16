@@ -51,6 +51,7 @@ namespace PlayerScripts
         [SerializeField] float breakableDelayTime;
         [SerializeField] float turretDelayTime;
         [SerializeField] float portalDelayTime;
+        [SerializeField] float holeDelayTime;
     
         // Start is called before the first frame update
         private void Start()
@@ -72,6 +73,7 @@ namespace PlayerScripts
             this.breakableDelayTime = 1.0f;
             this.turretDelayTime = 1.0f;
             this.portalDelayTime = 1.0f;
+            this.holeDelayTime = 2.0f;
 
             playerTurn(180.0f);
             var position = transform.position;
@@ -314,6 +316,8 @@ namespace PlayerScripts
                 this.interactDelayTime = this.turretDelayTime;
             else if (this.frontObject.CompareTag("InPortal"))
                 this.interactDelayTime = this.portalDelayTime;
+            else if (this.frontObject.CompareTag("Hole"))
+                this.interactDelayTime = this.holeDelayTime;
         }
 
 
@@ -321,7 +325,9 @@ namespace PlayerScripts
         private void interact()
         {
             if (this.frontObject.CompareTag("Breakable"))
+            {
                 Destroy(this.frontObject);
+            }
             else if (this.frontObject.CompareTag("Turret"))
             {
                 this.frontObject.GetComponent<TurretController>().setIsPause();
@@ -330,6 +336,14 @@ namespace PlayerScripts
             {
                 transform.position = this.frontObject.GetComponent<InPortal>().getDestinationPosition();
                 this.targetPosition = transform.position;
+            }
+            else if (this.frontObject.CompareTag("Hole"))
+            {
+                HoleAnchor holeScript = this.frontObject.GetComponent<HoleAnchor>();
+                
+                if (holeScript.getIsClose()) return;
+                holeScript.holeClose();
+                this.isObstruct = false;
             }
 
             this.isInteracting = false;
