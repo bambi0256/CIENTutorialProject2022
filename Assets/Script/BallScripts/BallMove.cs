@@ -17,11 +17,16 @@ namespace BallScripts
 
         private bool cannonballHit;
         private bool blockHit;
+        private bool isIntoHole;
+        private float ballStayTime;
+        private float ballStayDeltaTime;
         
         private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
             BallSpeed = 10;
+
+            this.ballStayTime = 5.0f;
         }
 
         private void FixedUpdate()
@@ -56,6 +61,15 @@ namespace BallScripts
             {
                 Debug.Log("Game Over");
             }
+            // if ball fall into hole, game over
+            if (this.isIntoHole)
+            {
+                this.ballStayDeltaTime += Time.deltaTime;
+                
+                if (!(this.ballStayDeltaTime > ballStayTime)) return;
+
+                Debug.Log("Game Over");
+            }
         }
 
 
@@ -73,6 +87,34 @@ namespace BallScripts
             {
                 Debug.Log("Portal move");
             }
+        }
+
+
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (!other.gameObject.CompareTag("AroundHole"))
+            {
+                outHole();
+                return;
+            }
+
+            this.isIntoHole = true;
+        }
+
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("AroundHole"))
+            {
+                outHole();
+            }
+        }
+
+
+        private void outHole()
+        {
+            this.isIntoHole = false;
+            this.ballStayDeltaTime = 0.0f;
         }
     }
 }
