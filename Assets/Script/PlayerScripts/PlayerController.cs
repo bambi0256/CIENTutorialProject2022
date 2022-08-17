@@ -1,3 +1,4 @@
+using TileScripts;
 using Script.ObjectScripts;
 using UnityEngine;
 
@@ -52,6 +53,7 @@ namespace PlayerScripts
         [SerializeField] float turretDelayTime;
         [SerializeField] float portalDelayTime;
         [SerializeField] float holeDelayTime;
+        [SerializeField] float slowTileDelayTime;
     
         // Start is called before the first frame update
         private void Start()
@@ -74,6 +76,7 @@ namespace PlayerScripts
             this.turretDelayTime = 1.0f;
             this.portalDelayTime = 1.0f;
             this.holeDelayTime = 2.0f;
+            this.slowTileDelayTime = 0.4f;
 
             playerTurn(180.0f);
             var position = transform.position;
@@ -318,6 +321,8 @@ namespace PlayerScripts
                 this.interactDelayTime = this.portalDelayTime;
             else if (this.frontObject.CompareTag("Hole"))
                 this.interactDelayTime = this.holeDelayTime;
+            else if (this.frontObject.CompareTag("Tile"))
+                this.interactDelayTime = this.slowTileDelayTime;
         }
 
 
@@ -344,6 +349,10 @@ namespace PlayerScripts
                 if (holeScript.getIsClose()) return;
                 holeScript.holeClose();
                 this.isObstruct = false;
+            }
+            else if (this.frontObject.CompareTag("Tile"))
+            {
+                this.frontObject.GetComponent<ToSlowTile>().setIsSlow();
             }
 
             this.isInteracting = false;
