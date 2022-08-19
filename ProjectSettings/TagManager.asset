@@ -21,6 +21,7 @@ TagManager:
   - OutPortal
   - Hole
   - AroundHole
+  - Goal
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,8 @@
 using Script.ObjectScripts;
+using TileScripts;
 using UnityEngine;
+using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace PlayerScripts
 {
@@ -52,7 +55,17 @@ namespace PlayerScripts
         [SerializeField] float turretDelayTime;
         [SerializeField] float portalDelayTime;
         [SerializeField] float holeDelayTime;
-    
+        [SerializeField] float tileDelayTIme;
+        
+        private CheckBoolUp Up;
+        private CheckBoolRight Right;
+        private CheckBoolDown Down;
+        private CheckBoolLeft Left;
+        
+        private bool[] Direction = {false, false, false, false, false};
+        private bool isTileAround;
+        private bool cannotMove;
+
         // Start is called before the first frame update
         private void Start()
         {
@@ -63,6 +76,7 @@ namespace PlayerScripts
             this.movingDelayTime = 0.13f;
             this.playerMovingDelayTime = this.movingDelayTime;
             this.turnDelayTime = 0.05f;
+            this.tileDelayTIme = 0.3f;
 
             this.accelDelayTime = 0.5f;
             this.accelDuration = 30.0f;
@@ -79,6 +93,11 @@ namespace PlayerScripts
             var position = transform.position;
             this.targetPosition.x = position.x;
             this.targetPosition.y = position.y;
+            
+            Up = GetComponentInChildren<CheckBoolUp>();
+            Right = GetComponentInChildren<CheckBoolRight>();
+            Down = GetComponentInChildren<CheckBoolDown>();
+            Left = GetComponentInChildren<CheckBoolLeft>();
         }
 
         
@@ -152,26 +171,31 @@ namespace PlayerScripts
                 this.turnDelayDeltaTime = 0;
             }
 
+            
             if (Input.GetKeyDown(KeyCode.W))
             {
+                if (cannotMove) return;
                 playerTurn(0.0f);
                 keyDownInitialize();
                 this.buttonFlagUp = true;
             }
             else if (Input.GetKeyDown(KeyCode.S))
             {
+                if (cannotMove) return;
                 playerTurn(180.0f);
                 keyDownInitialize();
                 this.buttonFlagDown = true;
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
+                if (cannotMove) return;
                 playerTurn(90.0f);
                 keyDownInitialize();
                 this.buttonFlagLeft = true;
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
+                if (cannotMove) return;
                 playerTurn(-90.0f);
                 keyDownInitialize();
                 this.buttonFlagRight = true;
@@ -180,18 +204,22 @@ namespace PlayerScripts
 
             if (this.buttonFlagUp && Input.GetKey(KeyCode.W))
             {
+                if (cannotMove) return;
                 moving();
             }
             if (this.buttonFlagDown && Input.GetKey(KeyCode.S))
             {
+                if (cannotMove) return;
                 moving();
             }
             if (this.buttonFlagLeft && Input.GetKey(KeyCode.A))
             {
+                if (cannotMove) return;
                 moving();
             }
             if (this.buttonFlagRight && Input.GetKey(KeyCode.D))
             {
+                if (cannotMove) return;
                 moving();
             }
 
@@ -210,7 +238,12 @@ namespace PlayerScripts
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Instantiate(RoadTile, transform.position, Quaternion.identity);
+                CheckBool();
+                if (isTileAround)
+                {
+                    cannotMove = true;
+                    Invoke(nameof(BuildTile), tileDelayTIme);
+                }
             }
         
 
@@ -223,6 +256,11 @@ namespace PlayerScripts
         */
         }
 
+
+        private void BuildTile()
+        {
+            Instantiate(RoadTile, transform.position, Quaternion.identity);
+        }
         
         private void playerTurn(float direction)
         {
@@ -355,6 +393,24 @@ namespace PlayerScripts
             this.movingDelayTime = this.playerAccelDelayTime;
             this.isAcceleration = true;
             this.isShiftDown = false;
+        }
+        
+        private void CheckBool()
+        {
+            if (Up.Flag) Direction[1] = true;
+            else Direction[1] = false;
+            if (Right.Flag) Direction[2] = true;
+            else Direction[2] = false;
+            if (Down.Flag) Direction[3] = true;
+            else Direction[3] = false;
+            if (Left.Flag) Direction[4] = true;
+            else Direction[4] = false;
+
+            if (Direction.Count(c => c) > 0)
+            {
+                isTileAround = true;
+            }
+            else isTileAround = false;
         }
     }
 }

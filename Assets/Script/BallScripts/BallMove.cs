@@ -18,8 +18,12 @@ namespace BallScripts
         private bool cannonballHit;
         private bool blockHit;
         private bool isIntoHole;
+        private bool onTile;
         private float ballStayTime;
         private float ballStayDeltaTime;
+
+        private bool isGameOver;
+        private bool isClear;
         
         private void Start()
         {
@@ -54,12 +58,14 @@ namespace BallScripts
             if (this.blockHit)
             {
                 Debug.Log("Game Over");
+                isGameOver = true;
             }
             
             // if ball is hit by cannonball, game over
             if (this.cannonballHit)
             {
                 Debug.Log("Game Over");
+                isGameOver = true;
             }
             // if ball fall into hole, game over
             if (this.isIntoHole)
@@ -68,6 +74,14 @@ namespace BallScripts
                 
                 if (!(this.ballStayDeltaTime > ballStayTime)) return;
 
+                isGameOver = true;
+                Debug.Log("Game Over");
+            }
+            
+            // if ball isn't on tile, game over
+            if (!this.onTile)
+            {
+                isGameOver = true;
                 Debug.Log("Game Over");
             }
         }

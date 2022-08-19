@@ -12,7 +12,7 @@ namespace TileScripts
         private CheckBoolDown Down;
         private CheckBoolLeft Left;
         
-        private readonly bool[] Direction = {false, false, false, false, false};
+        private bool[] Direction = {false, false, false, false, false};
         // 0 = stop(GameOver), 1 = up, 2 = right, 3 = down , 4 = left
         private int dirNum;
         private bool preFlag;
@@ -53,9 +53,13 @@ namespace TileScripts
         private void CheckBool()
         {
             if (Up.Flag) Direction[1] = true;
+            else Direction[1] = false;
             if (Right.Flag) Direction[2] = true;
+            else Direction[2] = false;
             if (Down.Flag) Direction[3] = true;
+            else Direction[3] = false;
             if (Left.Flag) Direction[4] = true;
+            else Direction[4] = false;
             
             dirNum= Direction.Count(c => c);
         }
