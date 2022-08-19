@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Script.ObjectScripts
+namespace ObjectScripts
 {
     public class TerminalCollision : MonoBehaviour
     {

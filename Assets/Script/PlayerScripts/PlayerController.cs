@@ -1,4 +1,4 @@
-using Script.ObjectScripts;
+using ObjectScripts;
 using TileScripts;
 using UnityEngine;
 using System.Linq;

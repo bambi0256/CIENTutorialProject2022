@@ -1,7 +1,7 @@
 using BallScripts;
 using UnityEngine;
 
-namespace Script.ObjectScripts
+namespace ObjectScripts
 {
     public class Hole : MonoBehaviour
     {
