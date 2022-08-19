@@ -35,7 +35,6 @@ namespace BallScripts
 
         private void FixedUpdate()
         {
-            Debug.Log(BallDir);
             Move();
             CheckDeath();
         }
