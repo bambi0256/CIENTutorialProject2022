@@ -6,7 +6,7 @@ namespace PlayerScripts
     public class PlayerAnchor : MonoBehaviour
     {
         [SerializeField] private bool isCannonball;
-        [SerializeField] private bool isTileOn;
+        public bool isTileOn;
         private GameObject parent;
         private PlayerController playerController;
 
@@ -33,7 +33,7 @@ namespace PlayerScripts
         {
             if(other.gameObject.CompareTag("Tile"))
             {
-                isTileOn = false;
+                isTileOn = true;
             }
         }
     }

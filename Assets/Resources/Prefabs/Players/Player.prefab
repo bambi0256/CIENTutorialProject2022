@@ -54,7 +54,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -80,9 +80,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2480691244721001767}
   - component: {fileID: 2480691244721001765}
+  - component: {fileID: 1583092468380763976}
   - component: {fileID: 2480691244721001764}
   - component: {fileID: 2480691244721001786}
-  - component: {fileID: 1583092468380763976}
   m_Layer: 7
   m_Name: Front
   m_TagString: Front
@@ -114,6 +114,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 351cfc8de96a24a76b72a9ca80955ba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1583092468380763976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2480691244721001766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d2a98203cb5004587759f0b28068dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!61 &2480691244721001764
@@ -163,18 +175,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1583092468380763976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2480691244721001766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06d2a98203cb5004587759f0b28068dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5961643743193378176
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +229,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -353,10 +353,12 @@ MonoBehaviour:
   accelDuration: 0
   isObstruct: 0
   RoadTile: {fileID: 234789957129044784, guid: 6468e15e0cf26cb498eedd1342c1aff9, type: 3}
+  Anchor: {fileID: 6315000276761985039}
   breakableDelayTime: 1
   turretDelayTime: 1
   portalDelayTime: 0
   holeDelayTime: 0
+  tileDelayTIme: 0
 --- !u!1 &6315000276761985039
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +416,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -495,7 +497,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

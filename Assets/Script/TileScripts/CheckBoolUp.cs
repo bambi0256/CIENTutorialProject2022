@@ -7,10 +7,11 @@ namespace TileScripts
         private bool isThere;
         internal bool Flag;
         
-        private void OnTriggerEnter2D(Collider2D col)
+        private void OnTriggerStay2D(Collider2D col)
         {
             if (!col.gameObject.CompareTag("Tile")) return;
             isThere = true;
+            Debug.Log("tile in Up");
         }
 
         private void OnTriggerExit2D(Collider2D other)

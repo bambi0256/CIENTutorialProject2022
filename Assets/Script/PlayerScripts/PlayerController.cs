@@ -47,6 +47,7 @@ namespace PlayerScripts
 
         private GameObject frontObject;
         public GameObject RoadTile;
+        public GameObject Anchor;
         private bool isExistFrontObject;
         private bool isInteracting;
         private float interactDelayTime;
@@ -61,8 +62,10 @@ namespace PlayerScripts
         private CheckBoolRight Right;
         private CheckBoolDown Down;
         private CheckBoolLeft Left;
+
+        private PlayerAnchor _playerAnchor;
         
-        private bool[] Direction = {false, false, false, false, false};
+        private readonly bool[] Direction = {false, false, false, false, false};
         private bool isTileAround;
         private bool cannotMove;
 
@@ -98,6 +101,8 @@ namespace PlayerScripts
             Right = GetComponentInChildren<CheckBoolRight>();
             Down = GetComponentInChildren<CheckBoolDown>();
             Left = GetComponentInChildren<CheckBoolLeft>();
+
+            _playerAnchor = Anchor.GetComponent<PlayerAnchor>();
         }
 
         
@@ -239,11 +244,14 @@ namespace PlayerScripts
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 CheckBool();
-                if (isTileAround)
+                /* if (isTileAround && !_playerAnchor.isTileOn)
                 {
                     cannotMove = true;
-                    Invoke(nameof(BuildTile), tileDelayTIme);
+                    BuildTile();
                 }
+                */
+                
+                BuildTile();
             }
         
 
@@ -406,11 +414,8 @@ namespace PlayerScripts
             if (Left.Flag) Direction[4] = true;
             else Direction[4] = false;
 
-            if (Direction.Count(c => c) > 0)
-            {
-                isTileAround = true;
-            }
-            else isTileAround = false;
+            isTileAround = Direction.Count(c => c) > 0;
+            Debug.Log(isTileAround);
         }
     }
 }

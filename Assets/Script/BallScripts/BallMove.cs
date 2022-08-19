@@ -81,7 +81,6 @@ namespace BallScripts
             if (!this.onTile)
             {
                 isGameOver = true;
-                Debug.Log("Game Over");
             }
         }
 
