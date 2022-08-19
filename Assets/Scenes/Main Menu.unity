@@ -9253,7 +9253,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4657354019718296147, guid: 6e98a63614ac9014797fff24f6785404, type: 3}
       propertyPath: DelayTime
-      value: 1000
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -4657354019718296147, guid: 6e98a63614ac9014797fff24f6785404, type: 3}
       propertyPath: Direction
