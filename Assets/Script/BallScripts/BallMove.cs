@@ -6,7 +6,7 @@ namespace BallScripts
     {
         private Rigidbody2D _rigidbody2D;
 
-        public int BallDir = 2;
+        public static int BallDir = 2;
         // 0 = stop, 1 = up, 2 = right, 3 = down, 4 = left
         public float BallSpeed;
 
@@ -29,6 +29,7 @@ namespace BallScripts
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
             BallSpeed = 10;
+            BallDir = 0;
 
             this.ballStayTime = 5.0f;
         }

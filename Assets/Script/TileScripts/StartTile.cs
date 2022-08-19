@@ -19,7 +19,7 @@ namespace TileScripts
 
         private void SetBallDir()
         {
-            Ball.GetComponent<BallMove>().BallDir = Direction;
+            BallMove.BallDir = Direction;
         }
     }
 }
