@@ -19,8 +19,6 @@ namespace BallScripts
         private bool blockHit;
         private bool isIntoHole;
         private bool onTile;
-        private float ballStayTime;
-        private float ballStayDeltaTime;
 
         private bool isGameOver;
         private bool isClear;
@@ -30,8 +28,6 @@ namespace BallScripts
             _rigidbody2D = GetComponent<Rigidbody2D>();
             BallSpeed = 10;
             BallDir = 0;
-
-            this.ballStayTime = 5.0f;
         }
 
         private void FixedUpdate()
@@ -70,10 +66,6 @@ namespace BallScripts
             // if ball fall into hole, game over
             if (this.isIntoHole)
             {
-                this.ballStayDeltaTime += Time.deltaTime;
-                
-                if (!(this.ballStayDeltaTime > ballStayTime)) return;
-
                 isGameOver = true;
                 Debug.Log("Game Over");
             }
@@ -88,11 +80,7 @@ namespace BallScripts
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Cannonball"))
-            {
-                this.cannonballHit = true;
-            }
-            else if (other.gameObject.CompareTag("Block") || other.gameObject.CompareTag("Breakable"))
+            if (other.gameObject.CompareTag("Block") || other.gameObject.CompareTag("Breakable"))
             {
                 this.blockHit = true;
             }
@@ -103,31 +91,15 @@ namespace BallScripts
         }
 
 
-        private void OnTriggerStay2D(Collider2D other)
+        public void setIsIntoHole()
         {
-            if (!other.gameObject.CompareTag("AroundHole"))
-            {
-                outHole();
-                return;
-            }
-
             this.isIntoHole = true;
         }
 
 
-        private void OnTriggerExit2D(Collider2D other)
+        public void setCannonballHit()
         {
-            if (other.gameObject.CompareTag("AroundHole"))
-            {
-                outHole();
-            }
-        }
-
-
-        private void outHole()
-        {
-            this.isIntoHole = false;
-            this.ballStayDeltaTime = 0.0f;
+            this.cannonballHit = true;
         }
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7499134088340898953}
   - component: {fileID: 7499134088340898956}
   - component: {fileID: 9048436287854673041}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cannonball
   m_TagString: Cannonball
   m_Icon: {fileID: 0}
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileLength: 1
+  cannonballDir: {x: 0, y: 0, z: 0}
 --- !u!58 &7499134088340898956
 CircleCollider2D:
   m_ObjectHideFlags: 0
