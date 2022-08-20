@@ -84,6 +84,10 @@ namespace BallScripts
                 isGameOver = true;
                 Debug.Log("Game Over");
             }
+
+            /*UIScripts.UIManagers.Instance.SetActiveGameoverUI(true);
+            AudioManager.instance.PlayBGM("GameOver");*/
+
         }
 
 
