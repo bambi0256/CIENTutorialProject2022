@@ -32,17 +32,20 @@ namespace TileScripts
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (!this.isSlow) return;
             if (!other.gameObject.CompareTag("Ball")) return;
             
-            other.gameObject.transform.parent.GetComponent<BallMove>().BallSpeed /= 2.0f;
+            this.ballScript =  other.gameObject.transform.parent.GetComponent<BallMove>();
+            this.ballScript.BallSpeed /= 2.0f;
         }
 
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            if (!this.isSlow) return;
             if (!other.gameObject.CompareTag("Ball")) return;
             
-            other.gameObject.transform.parent.GetComponent<BallMove>().BallSpeed *= 2.0f;
+            this.ballScript.BallSpeed *= 2.0f;
         }
     }
 }
