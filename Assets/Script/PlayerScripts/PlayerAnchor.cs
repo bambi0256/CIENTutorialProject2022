@@ -23,10 +23,12 @@ namespace PlayerScripts
             {
                 isTileOn = true;
             }
-            else if (!other.gameObject.CompareTag("Cannonball")) return;
-            isCannonball = true;
+            else if (other.gameObject.CompareTag("Cannonball"))
+            {
+                isCannonball = true;
 
-            playerController.setCannonballHit();
+                playerController.setCannonballHit();
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)

@@ -89,7 +89,7 @@ namespace PlayerScripts
 
             this.breakableDelayTime = 1.0f;
             this.turretDelayTime = 1.0f;
-            this.portalDelayTime = 1.0f;
+            this.portalDelayTime = 0.5f;
             this.holeDelayTime = 2.0f;
 
             playerTurn(180.0f);
@@ -148,7 +148,7 @@ namespace PlayerScripts
             }
 
             // if player is interacting
-            if (isInteracting)
+            if (this.isInteracting)
             {
                 this.delayDeltaTime += Time.deltaTime;
 

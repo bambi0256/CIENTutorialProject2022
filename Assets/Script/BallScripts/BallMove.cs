@@ -1,3 +1,4 @@
+using ObjectScripts;
 using UnityEngine;
 
 namespace BallScripts
@@ -14,20 +15,28 @@ namespace BallScripts
         private readonly Vector2 Right = new Vector2(1, 0);
         private readonly Vector2 Down = new Vector2(0, -1);
         private readonly Vector2 Left = new Vector2(-1, 0);
+        private readonly Vector2 Stop = new Vector2(0, 0);
 
         private bool cannonballHit;
         private bool blockHit;
         private bool isIntoHole;
+        private bool inPortal;
         private bool onTile;
 
         private bool isGameOver;
         private bool isClear;
+
+        private float portalDelayTime;
+        private float portalDelayDeltaTime;
+        private InPortal inPortalScript;
         
         private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
             BallSpeed = 10;
             BallDir = 0;
+
+            this.portalDelayTime = 0.5f;
         }
 
         private void FixedUpdate()
@@ -38,6 +47,16 @@ namespace BallScripts
 
         private void Move()
         {
+            if (this.inPortal)
+            {
+                this.portalDelayDeltaTime += Time.deltaTime;
+
+                if (!(this.portalDelayDeltaTime > this.portalDelayTime)) return;
+
+                transform.position = this.inPortalScript.getDestinationPosition();
+                this.inPortal = false;
+            }
+
             _rigidbody2D.velocity = BallDir switch
             {
                 1 => Up * (Time.deltaTime * BallSpeed),
@@ -86,7 +105,9 @@ namespace BallScripts
             }
             else if (other.gameObject.CompareTag("InPortal"))
             {
-                Debug.Log("Portal move");
+                this.inPortal = true;
+                this.inPortalScript = other.gameObject.GetComponent<InPortal>();
+                _rigidbody2D.velocity = Stop;
             }
         }
 
