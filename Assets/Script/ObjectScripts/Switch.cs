@@ -5,8 +5,8 @@ namespace ObjectScripts
     public class Switch : MonoBehaviour
     {
         [SerializeField] private bool switchOn;
-        [SerializeField] private GameObject switchBarrier;
-        private SwitchBarrier barrierScript;
+        [SerializeField] private GameObject[] switchBarrierList = new GameObject[1];
+        private SwitchBarrier[] barrierScriptList;
 
         // 0 is off state, 1 is on state
         [SerializeField] private Sprite[] sprites = new Sprite[2];
@@ -15,8 +15,13 @@ namespace ObjectScripts
 
         private void Start()
         {
-            this.barrierScript = switchBarrier.GetComponent<SwitchBarrier>();
-            this.barrierScript.setSwitchOn(this.switchOn);
+            this.barrierScriptList = new SwitchBarrier[switchBarrierList.Length];
+
+            for (int i = 0; i < switchBarrierList.Length; i++)
+            {
+                this.barrierScriptList[i] = switchBarrierList[i].GetComponent<SwitchBarrier>();
+                this.barrierScriptList[i].setSwitchOn(this.switchOn);
+            }
             this.spriteRenderer = GetComponent<SpriteRenderer>();
             setSprite();
         }
@@ -46,7 +51,12 @@ namespace ObjectScripts
         private void switchToggle()
         {
             this.switchOn = this.switchOn ^ true;
-            this.barrierScript.setSwitchOn(this.switchOn);
+
+            for (int i = 0; i < switchBarrierList.Length; i++)
+            {
+                this.barrierScriptList[i] = switchBarrierList[i].GetComponent<SwitchBarrier>();
+                this.barrierScriptList[i].setSwitchOn(this.switchOn);
+            }
         }
 
 
