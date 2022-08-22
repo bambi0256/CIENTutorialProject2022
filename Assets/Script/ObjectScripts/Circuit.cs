@@ -2,10 +2,9 @@ using UnityEngine;
 
 namespace ObjectScripts
 {
-    public class SwitchBarrier : MonoBehaviour
+    public class Circuit : MonoBehaviour
     {
         private bool switchOn;
-        private int defaultLayer;
 
         // 0 is off state, 1 is on state
         [SerializeField] private Sprite[] sprites = new Sprite[2];
@@ -16,7 +15,6 @@ namespace ObjectScripts
         {
             this.spriteRenderer = GetComponent<SpriteRenderer>();
             setSprite();
-            defaultLayer = gameObject.layer;
         }
 
 
@@ -29,22 +27,10 @@ namespace ObjectScripts
         }
 
 
-        private void toggleLayer()
-        {
-            // layer 8 is Obstruction
-            if (this.switchOn)
-                gameObject.layer = 8;
-            else
-                gameObject.layer = defaultLayer;
-
-        }
-
-
         public void setSwitchOn(bool switchState)
         {
             this.switchOn = switchState;
             setSprite();
-            toggleLayer();
         }
     }
 }

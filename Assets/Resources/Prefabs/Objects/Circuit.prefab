@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2758181928219055530}
   - component: {fileID: 2758181928219055531}
+  - component: {fileID: 5058857544929559619}
   - component: {fileID: 4288174922071905293}
   m_Layer: 0
   m_Name: Circuit
@@ -83,6 +84,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5058857544929559619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2758181928219055525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 752bcf0b2390244ea9c6d6837d17d477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  - {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
 --- !u!61 &4288174922071905293
 BoxCollider2D:
   m_ObjectHideFlags: 0

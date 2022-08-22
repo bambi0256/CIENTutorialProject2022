@@ -29,6 +29,7 @@ namespace ObjectScripts
                 this.cannonballDir = Vector3.right;
 
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.Translate(this.cannonballDir * this.tileLength * this.speed / 2.0f);
         }
 
 
