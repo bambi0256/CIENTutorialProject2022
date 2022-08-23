@@ -28,6 +28,7 @@ namespace BallScripts
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
             this.ballStayTime = 5.0f;
+            BallSpeed = 10f;
         }
 
         private void FixedUpdate()

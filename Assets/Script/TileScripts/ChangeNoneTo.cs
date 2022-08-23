@@ -13,7 +13,8 @@ namespace TileScripts
         private CheckBoolRight Right;
         private CheckBoolDown Down;
         private CheckBoolLeft Left;
-        
+        private CheckBallCollision BallCol;
+
         private bool[] Direction = {false, false, false, false, false};
         // 0 = stop(GameOver), 1 = up, 2 = right, 3 = down , 4 = left
         
@@ -29,6 +30,7 @@ namespace TileScripts
             Right = GetComponentInChildren<CheckBoolRight>();
             Down = GetComponentInChildren<CheckBoolDown>();
             Left = GetComponentInChildren<CheckBoolLeft>();
+            BallCol = GetComponentInChildren<CheckBallCollision>();
             _sprite = GetComponent<SpriteRenderer>();
             RoadSp = Resources.LoadAll<Sprite>("RoadSp");
             CheckPrePos();
@@ -37,16 +39,14 @@ namespace TileScripts
         private void Update()
         {
             CheckPrePos();
-            CheckNextPos();
+            CheckNextPos(); // NextPos 갖고 있음 > Sprite 바뀌기 때문에 확실
+            CheckCollision();
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
+        private void CheckCollision()
         {
-            if ( col.CompareTag("Ball") && col.transform.position == transform.position)
-                // 공이 현재 위치(중앙에) 도달했을 때 공 방향 변경
-            {
-                BallMove.BallDir = NextPos;
-            }
+            if (!BallCol.isBallCol) return;
+            BallMove.BallDir = NextPos;
         }
 
         private void CheckBool()

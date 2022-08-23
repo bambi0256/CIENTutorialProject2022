@@ -124,7 +124,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 7401164324373006064}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &142342741081557322
 BoxCollider2D:
@@ -310,7 +310,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 7401164324373006064}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6861202262754819131
 BoxCollider2D:
@@ -399,13 +399,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6151224084197190111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.103570096, y: 0.0356155, z: 0}
   m_LocalScale: {x: 0.83, y: 0.83, z: 1}
   m_Children:
   - {fileID: 2397605320822104378}
-  - {fileID: 141490721385538065}
-  - {fileID: 1516803830434832355}
   - {fileID: 4539512074638957543}
+  - {fileID: 1516803830434832355}
+  - {fileID: 141490721385538065}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -473,8 +473,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ball: {fileID: 2203239459036665371, guid: b0f47761b12d8bf4f83fa002048f7241, type: 3}
-  Direction: 0
   DelayTime: 0
+  NextPos: 0
 --- !u!61 &2000218076468971509
 BoxCollider2D:
   m_ObjectHideFlags: 0

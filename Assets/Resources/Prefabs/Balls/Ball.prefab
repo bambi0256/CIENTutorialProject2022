@@ -118,7 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b34d602e1a8dd439538a17a59c6c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BallDir: 0
   BallSpeed: 0
 --- !u!1 &7203464880099637353
 GameObject:
@@ -161,9 +160,9 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.01
