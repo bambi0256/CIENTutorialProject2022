@@ -244,13 +244,6 @@ namespace PlayerScripts
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 CheckBool();
-                /* if (isTileAround && !_playerAnchor.isTileOn)
-                {
-                    cannotMove = true;
-                    BuildTile();
-                }
-                */
-                
                 BuildTile();
             }
         
@@ -415,7 +408,6 @@ namespace PlayerScripts
             else Direction[4] = false;
 
             isTileAround = Direction.Count(c => c) > 0;
-            Debug.Log(isTileAround);
         }
     }
 }
