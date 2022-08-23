@@ -30,6 +30,10 @@ namespace ObjectScripts
 
             transform.rotation = Quaternion.Euler(0, 0, 0);
             transform.Translate(this.cannonballDir * this.tileLength * this.speed / 2.0f);
+
+            /*
+            AudioManager.instance.PlaySFX("ShootingBullet");
+            */
         }
 
 

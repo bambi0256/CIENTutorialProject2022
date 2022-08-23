@@ -72,27 +72,37 @@ namespace BallScripts
             // if ball get collision with wall, game over
             if (this.blockHit)
             {
-                Debug.Log("Game Over");
                 isGameOver = true;
             }
             
             // if ball is hit by cannonball, game over
             if (this.cannonballHit)
             {
-                Debug.Log("Game Over");
                 isGameOver = true;
             }
             // if ball fall into hole, game over
             if (this.isIntoHole)
             {
                 isGameOver = true;
-                Debug.Log("Game Over");
+
+                /*
+                AudioManager.instance.PlaySFX("InHole");
+                */
             }
             
             // if ball isn't on tile, game over
             if (!this.onTile)
             {
                 isGameOver = true;
+            }
+
+
+            if (isGameOver)
+            {
+                Debug.Log("Game Over");
+                /*
+                AudioManager.instance.PlaySFX("FailSound");
+                */
             }
         }
 

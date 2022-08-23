@@ -50,6 +50,7 @@ namespace PlayerScripts
         public GameObject Anchor;
         private bool isExistFrontObject;
         private bool isInteracting;
+        private bool frontIsBreakable;
         private float interactDelayTime;
 
         [SerializeField] float breakableDelayTime;
@@ -57,6 +58,8 @@ namespace PlayerScripts
         [SerializeField] float portalDelayTime;
         [SerializeField] float holeDelayTime;
         [SerializeField] float tileDelayTIme;
+        private float breakDelayTime;
+        private float breakDelayDeltaTime;
         
         private CheckBoolUp Up;
         private CheckBoolRight Right;
@@ -91,6 +94,7 @@ namespace PlayerScripts
             this.turretDelayTime = 1.0f;
             this.portalDelayTime = 0.5f;
             this.holeDelayTime = 2.0f;
+            this.breakDelayTime = 0.2f;
 
             playerTurn(180.0f);
             var position = transform.position;
@@ -152,9 +156,23 @@ namespace PlayerScripts
             {
                 this.delayDeltaTime += Time.deltaTime;
 
+                if (this.frontIsBreakable)
+                {
+                    this.breakDelayDeltaTime += Time.deltaTime;
+
+                    if (this.breakDelayDeltaTime > this.breakDelayTime)
+                    {
+                        /*
+                        AudioManager.instance.PlaySFX("BreakingBrick");
+                        */
+                        this.breakDelayDeltaTime = 0.0f;
+                    }
+                }
+
                 if (!(this.delayDeltaTime > interactDelayTime)) return;
                 interact();
                 this.delayDeltaTime = 0.0f;
+                this.frontIsBreakable = false;
             }
         
             //if moving, keep moving
@@ -268,6 +286,10 @@ namespace PlayerScripts
         private void BuildTile()
         {
             Instantiate(RoadTile, transform.position, Quaternion.identity);
+
+            /*
+            AudioManager.instance.PlaySFX("SetNormalTile");
+            */
         }
         
         private void playerTurn(float direction)
@@ -328,6 +350,10 @@ namespace PlayerScripts
         public void setCannonballHit()
         {
             this.cannonballHit = true;
+
+            /*
+            AudioManager.instance.PlaySFX("HitByBullet");
+            */
         }
 
 
@@ -357,7 +383,10 @@ namespace PlayerScripts
             this.isInteracting = true;
 
             if (this.frontObject.CompareTag("Breakable"))
+            {
                 this.interactDelayTime = this.breakableDelayTime;
+                this.frontIsBreakable = true;
+            }
             else if (this.frontObject.CompareTag("Turret"))
                 this.interactDelayTime = this.turretDelayTime;
             else if (this.frontObject.CompareTag("InPortal"))
@@ -373,6 +402,9 @@ namespace PlayerScripts
             if (this.frontObject.CompareTag("Breakable"))
             {
                 Destroy(this.frontObject);
+                /*
+                AudioManager.instance.PlaySFX("DestroyingBrick");
+                */
             }
             else if (this.frontObject.CompareTag("Turret"))
             {
@@ -381,6 +413,9 @@ namespace PlayerScripts
             else if (this.frontObject.CompareTag("InPortal"))
             {
                 transform.position = this.frontObject.GetComponent<InPortal>().getDestinationPosition();
+                /*
+                AudioManager.instance.PlaySFX("InPortal");
+                */
                 this.targetPosition = transform.position;
             }
             else if (this.frontObject.CompareTag("Hole"))
