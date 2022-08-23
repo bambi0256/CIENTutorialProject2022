@@ -6,7 +6,7 @@ namespace BallScripts
     {
         private Rigidbody2D _rigidbody2D;
 
-        public static int BallDir = 2;
+        public static int BallDir;
         // 0 = stop, 1 = up, 2 = right, 3 = down, 4 = left
         public float BallSpeed;
 
@@ -18,7 +18,6 @@ namespace BallScripts
         private bool cannonballHit;
         private bool blockHit;
         private bool isIntoHole;
-        private bool onTile;
         private float ballStayTime;
         private float ballStayDeltaTime;
 
@@ -28,9 +27,6 @@ namespace BallScripts
         private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
-            BallSpeed = 10;
-            BallDir = 0;
-
             this.ballStayTime = 5.0f;
         }
 
@@ -79,10 +75,6 @@ namespace BallScripts
             }
             
             // if ball isn't on tile, game over
-            if (!this.onTile)
-            {
-                isGameOver = true;
-            }
             /*UIScripts.UIManagers.Instance.SetActiveGameoverUI(true);
             AudioManager.instance.PlayBGM("GameOver");*/
         }
