@@ -46,8 +46,8 @@ namespace BallScripts
             {
                 1 => Up * (Time.deltaTime * BallSpeed),
                 2 => Right * (Time.deltaTime * BallSpeed),
-                3 => Left * (Time.deltaTime * BallSpeed),
-                4 => Down * (Time.deltaTime * BallSpeed),
+                3 => Down * (Time.deltaTime * BallSpeed),
+                4 => Left * (Time.deltaTime * BallSpeed),
                 _ => _rigidbody2D.velocity
             };
         }
