@@ -1,41 +1,51 @@
 using BallScripts;
 using UnityEngine;
 
-namespace Script.ObjectScripts
+namespace ObjectScripts
 {
     public class AroundHole : MonoBehaviour
     {
         private Hole parentScript;
 
-        private bool ballEnter;
         private bool isClose;
+
+        private GameObject triggerObject;
+        private GameObject ballAnchorObject;
+        private bool ballEnter;
+        private float ballStayTime;
+        private float ballStayDeltaTime;
 
 
         // Start is called before the first frame update
         void Start()
         {
             this.parentScript = transform.parent.gameObject.GetComponent<Hole>();
+            this.ballStayTime = 5.0f;
         }
 
 
         private void Update()
         {
-            if (this.ballEnter)
+            if (!this.isClose && this.ballEnter)
             {
-                this.isClose = this.parentScript.getIsClose();
+                this.ballStayDeltaTime += Time.deltaTime;
+                
+                if (!(this.ballStayDeltaTime > ballStayTime)) return;
 
-                if (this.isClose)
-                {
-                    gameObject.tag = "Untagged";
-                    this.ballEnter = false;
-                }
+                this.ballEnter = false;
+                this.ballAnchorObject.GetComponent<BallAnchor>().setIsIntoHole();
             }
         }
 
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.gameObject.CompareTag("Ball")) return;
+            triggerObject = other.gameObject;
+
+            if (!triggerObject.CompareTag("Ball")) return;
+
+            //setBallAnchorObject(triggerObject);
+            this.ballAnchorObject = triggerObject;
 
             this.ballEnter = true;
         }
@@ -45,7 +55,27 @@ namespace Script.ObjectScripts
         {
             if (!other.gameObject.CompareTag("Ball")) return;
 
+            outHole();
+        }
+
+
+        private void setBallAnchorObject(GameObject other)
+        {
+            this.ballAnchorObject = other;
+        }
+
+
+        public void setIsClose()
+        {
+            this.isClose = true;
+            outHole();
+        }
+
+
+        private void outHole()
+        {
             this.ballEnter = false;
+            this.ballStayDeltaTime = 0.0f;
         }
     }
 }

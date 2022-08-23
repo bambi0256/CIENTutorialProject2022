@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Script.ObjectScripts
+namespace ObjectScripts
 {
     public class CannonballController : MonoBehaviour
     {
@@ -10,24 +10,38 @@ namespace Script.ObjectScripts
         private float speed;
         private bool isFirstTurret;
 
+        // 1 = up, 2 = right, 3 = down, 4 = left
+        [SerializeField]private Vector3 cannonballDir;
+
 
         private void Start()
         {
             this.speed = 1.0f;
             this.isFirstTurret = true;
+
+            if (transform.rotation == Quaternion.Euler(0, 0, 0))
+                this.cannonballDir = Vector3.up;
+            else if (transform.rotation == Quaternion.Euler(0, 0, 180))
+                this.cannonballDir = Vector3.down;
+            else if (transform.rotation == Quaternion.Euler(0, 0, 90))
+                this.cannonballDir = Vector3.left;
+            else if (transform.rotation == Quaternion.Euler(0, 0, -90))
+                this.cannonballDir = Vector3.right;
+
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.Translate(this.cannonballDir * this.tileLength * this.speed / 2.0f);
+
+            /*
+            AudioManager.instance.PlaySFX("ShootingBullet");
+            */
         }
+
+
 
 
         private void Update()
         {
-            transform.Translate(Vector3.up * this.tileLength * this.speed * Time.deltaTime);
-
-            /*
-            if (Mathf.Abs(transform.position.x) > this.mapWidth + 1 || Mathf.Abs(transform.position.y) > this.mapHeight + 1 )
-            {
-                Destroy(gameObject);
-            }
-            */
+            transform.Translate(this.cannonballDir * this.tileLength * this.speed * Time.deltaTime);
         }
 
 

@@ -5,7 +5,6 @@ namespace PlayerScripts
 {
     public class PlayerAnchor : MonoBehaviour
     {
-        [SerializeField] private bool isCannonball;
         public bool isTileOn;
         private GameObject parent;
         private PlayerController playerController;
@@ -23,10 +22,10 @@ namespace PlayerScripts
             {
                 isTileOn = true;
             }
-            else if (!other.gameObject.CompareTag("Cannonball")) return;
-            isCannonball = true;
-
-            playerController.setCannonballHit();
+            else if (other.gameObject.CompareTag("Cannonball"))
+            {
+                playerController.setCannonballHit();
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)

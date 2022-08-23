@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7499134088340898953}
   - component: {fileID: 7499134088340898956}
   - component: {fileID: 9048436287854673041}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cannonball
   m_TagString: Cannonball
   m_Icon: {fileID: 0}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 205248ab311a84604859e2c51d66b05b, type: 3}
   m_Color: {r: 0.3207547, g: 0.31016374, b: 0.31016374, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileLength: 1
+  cannonballDir: {x: 0, y: 0, z: 0}
 --- !u!58 &7499134088340898956
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -113,7 +114,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5000001
+  m_Radius: 0.25
 --- !u!50 &9048436287854673041
 Rigidbody2D:
   serializedVersion: 4

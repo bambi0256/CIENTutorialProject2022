@@ -1,3 +1,4 @@
+using ObjectScripts;
 using UnityEngine;
 
 namespace BallScripts
@@ -14,21 +15,30 @@ namespace BallScripts
         private readonly Vector2 Right = new Vector2(1, 0);
         private readonly Vector2 Down = new Vector2(0, -1);
         private readonly Vector2 Left = new Vector2(-1, 0);
+        private readonly Vector2 Stop = new Vector2(0, 0);
 
         private bool cannonballHit;
         private bool blockHit;
         private bool isIntoHole;
         private float ballStayTime;
         private float ballStayDeltaTime;
+        private bool inPortal;
+        private bool onTile;
 
         private bool isGameOver;
         private bool isClear;
+
+        private float portalDelayTime;
+        private float portalDelayDeltaTime;
+        private InPortal inPortalScript;
         
         private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
             this.ballStayTime = 5.0f;
             BallSpeed = 10f;
+            BallDir = 0;
+            this.portalDelayTime = 0.5f;
         }
 
         private void FixedUpdate()
@@ -39,6 +49,16 @@ namespace BallScripts
 
         private void Move()
         {
+            if (this.inPortal)
+            {
+                this.portalDelayDeltaTime += Time.deltaTime;
+
+                if (!(this.portalDelayDeltaTime > this.portalDelayTime)) return;
+
+                transform.position = this.inPortalScript.getDestinationPosition();
+                this.inPortal = false;
+            }
+
             _rigidbody2D.velocity = BallDir switch
             {
                 1 => Up * (Time.deltaTime * BallSpeed),
@@ -54,76 +74,65 @@ namespace BallScripts
             // if ball get collision with wall, game over
             if (this.blockHit)
             {
-                Debug.Log("Game Over");
                 isGameOver = true;
             }
             
             // if ball is hit by cannonball, game over
             if (this.cannonballHit)
             {
-                Debug.Log("Game Over");
                 isGameOver = true;
             }
             // if ball fall into hole, game over
             if (this.isIntoHole)
             {
-                this.ballStayDeltaTime += Time.deltaTime;
-                
-                if (!(this.ballStayDeltaTime > ballStayTime)) return;
-
                 isGameOver = true;
-                Debug.Log("Game Over");
+
+                /*
+                AudioManager.instance.PlaySFX("InHole");
+                */
             }
 
             // if ball isn't on tile, game over
-            /*UIScripts.UIManagers.Instance.SetActiveGameoverUI(true);
-            AudioManager.instance.PlayBGM("GameOver");
-            AudioManager.instance.PlaySFX("FailSound")*/
+            if (!this.onTile)
+            {
+                isGameOver = true;
+            }
+
+
+            if (isGameOver)
+            {
+                Debug.Log("Game Over");
+                /*
+                AudioManager.instance.PlaySFX("FailSound");
+                */
+            }
         }
 
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Cannonball"))
-            {
-                this.cannonballHit = true;
-            }
-            else if (other.gameObject.CompareTag("Block") || other.gameObject.CompareTag("Breakable"))
+            if (other.gameObject.CompareTag("Block") || other.gameObject.CompareTag("Breakable"))
             {
                 this.blockHit = true;
             }
             else if (other.gameObject.CompareTag("InPortal"))
             {
-                Debug.Log("Portal move");
+                this.inPortal = true;
+                this.inPortalScript = other.gameObject.GetComponent<InPortal>();
+                _rigidbody2D.velocity = Stop;
             }
         }
 
 
-        private void OnTriggerStay2D(Collider2D other)
+        public void setIsIntoHole()
         {
-            if (!other.gameObject.CompareTag("AroundHole"))
-            {
-                outHole();
-                return;
-            }
-
             this.isIntoHole = true;
         }
 
 
-        private void OnTriggerExit2D(Collider2D other)
+        public void setCannonballHit()
         {
-            if (other.gameObject.CompareTag("AroundHole"))
-            {
-                outHole();
-            }
-        }
-
-
-        private void outHole()
-        {
-            this.isIntoHole = false;
-            this.ballStayDeltaTime = 0.0f;
+            this.cannonballHit = true;
         }
     }
 }

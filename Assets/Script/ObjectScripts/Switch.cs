@@ -1,12 +1,17 @@
 using UnityEngine;
 
-namespace Script.ObjectScripts
+namespace ObjectScripts
 {
     public class Switch : MonoBehaviour
     {
         [SerializeField] private bool switchOn;
-        [SerializeField] private GameObject switchBarrier;
-        private SwitchBarrier barrierScript;
+        [SerializeField] private GameObject[] switchBarrierList = new GameObject[1];
+        private SwitchBarrier[] barrierScriptList;
+        private int barrierCount;
+
+        [SerializeField] private GameObject[] circuitList = new GameObject[1];
+        private Circuit[] circuitScriptList;
+        private int circuitCount;
 
         // 0 is off state, 1 is on state
         [SerializeField] private Sprite[] sprites = new Sprite[2];
@@ -15,8 +20,26 @@ namespace Script.ObjectScripts
 
         private void Start()
         {
-            this.barrierScript = switchBarrier.GetComponent<SwitchBarrier>();
-            this.barrierScript.setSwitchOn(this.switchOn);
+            this.barrierCount = switchBarrierList.Length;
+            this.circuitCount = circuitList.Length;
+
+            this.barrierScriptList = new SwitchBarrier[this.barrierCount];
+            this.circuitScriptList = new Circuit[this.circuitCount];
+
+            int i;
+
+            for (i = 0; i < this.barrierCount; i++)
+            {
+                this.barrierScriptList[i] = switchBarrierList[i].GetComponent<SwitchBarrier>();
+                this.barrierScriptList[i].setSwitchOn(this.switchOn);
+            }
+
+            for (i = 0; i < this.circuitCount; i++)
+            {
+                this.circuitScriptList[i] = circuitList[i].GetComponent<Circuit>();
+                this.circuitScriptList[i].setSwitchOn(this.switchOn);
+            }
+
             this.spriteRenderer = GetComponent<SpriteRenderer>();
             setSprite();
         }
@@ -28,6 +51,10 @@ namespace Script.ObjectScripts
             {
                 switchToggle();
                 setSprite();
+
+                /*
+                AudioManager.instance.PlaySFX("Switch");
+                */
             }
         }
 
@@ -46,7 +73,18 @@ namespace Script.ObjectScripts
         private void switchToggle()
         {
             this.switchOn = this.switchOn ^ true;
-            this.barrierScript.setSwitchOn(this.switchOn);
+
+            int i;
+
+            for (i = 0; i < this.barrierCount; i++)
+            {
+                this.barrierScriptList[i].setSwitchOn(this.switchOn);
+            }
+
+            for (i = 0; i < this.circuitCount; i++)
+            {
+                this.circuitScriptList[i].setSwitchOn(this.switchOn);
+            }
         }
 
 
