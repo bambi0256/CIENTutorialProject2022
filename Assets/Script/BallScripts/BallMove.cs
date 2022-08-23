@@ -74,10 +74,11 @@ namespace BallScripts
                 isGameOver = true;
                 Debug.Log("Game Over");
             }
-            
+
             // if ball isn't on tile, game over
             /*UIScripts.UIManagers.Instance.SetActiveGameoverUI(true);
-            AudioManager.instance.PlayBGM("GameOver");*/
+            AudioManager.instance.PlayBGM("GameOver");
+            AudioManager.instance.PlaySFX("FailSound")*/
         }
 
 
