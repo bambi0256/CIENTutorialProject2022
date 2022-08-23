@@ -7,6 +7,7 @@ namespace TileScripts
     {
         public GameObject Ball;
         public float DelayTime;
+        private bool canStart;
 
         private SpriteRenderer _sprite;
         private Sprite[] RoadSp;
@@ -16,8 +17,6 @@ namespace TileScripts
         private CheckBoolDown Down;
         private CheckBoolLeft Left;
         
-        private bool[] Direction = {false, false, false, false, false};
-        // 0 = stop(GameOver), 1 = up, 2 = right, 3 = down , 4 = left
         [SerializeField]private int NextPos;
 
         private void Awake()
@@ -31,12 +30,19 @@ namespace TileScripts
             _sprite = GetComponent<SpriteRenderer>();
             RoadSp = Resources.LoadAll<Sprite>("RoadSp");
             Instantiate(Ball, BallPos, Quaternion.identity);
-            Invoke(nameof(SetBallDir), DelayTime);
+            Invoke(nameof(CanStart), DelayTime);
         }
 
+        private void CanStart()
+        {
+            canStart = true;
+        }
+        
         private void SetBallDir()
         {
+            if (!canStart) return;
             BallMove.BallDir = NextPos;
+            canStart = false;
         }
         
         private void Update()
@@ -64,6 +70,7 @@ namespace TileScripts
                 NextPos = 4;
                 _sprite.sprite = RoadSp[4];
             }
+            SetBallDir();
         }
     }
 }
