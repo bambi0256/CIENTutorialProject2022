@@ -1,5 +1,5 @@
-using ObjectScripts;
 using TileScripts;
+using Script.ObjectScripts;
 using UnityEngine;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -58,6 +58,7 @@ namespace PlayerScripts
         [SerializeField] float portalDelayTime;
         [SerializeField] float holeDelayTime;
         [SerializeField] float tileDelayTIme;
+        [SerializeField] float slowTileDelayTime;
         private float breakDelayTime;
         private float breakDelayDeltaTime;
         
@@ -71,7 +72,8 @@ namespace PlayerScripts
         private readonly bool[] Direction = {false, false, false, false, false};
         private bool isTileAround;
         private bool cannotMove;
-
+        
+    
         // Start is called before the first frame update
         private void Start()
         {
@@ -95,6 +97,7 @@ namespace PlayerScripts
             this.portalDelayTime = 0.5f;
             this.holeDelayTime = 2.0f;
             this.breakDelayTime = 0.2f;
+            this.slowTileDelayTime = 0.4f;
 
             playerTurn(180.0f);
             var position = transform.position;
@@ -386,6 +389,8 @@ namespace PlayerScripts
                 this.interactDelayTime = this.portalDelayTime;
             else if (this.frontObject.CompareTag("Hole"))
                 this.interactDelayTime = this.holeDelayTime;
+            else if (this.frontObject.CompareTag("Tile"))
+                this.interactDelayTime = this.slowTileDelayTime;
         }
 
 
@@ -418,6 +423,10 @@ namespace PlayerScripts
                 if (holeScript.getIsClose()) return;
                 holeScript.holeClose();
                 this.isObstruct = false;
+            }
+            else if (this.frontObject.CompareTag("Tile"))
+            {
+                this.frontObject.GetComponent<ToSlowTile>().setIsSlow();
             }
 
             this.isInteracting = false;

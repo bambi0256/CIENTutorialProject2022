@@ -20,7 +20,7 @@ namespace PlayerScripts
         {
             front = other.gameObject;
 
-            if (!(front.CompareTag("Breakable") || front.CompareTag("InPortal") || front.CompareTag("Turret") || front.CompareTag("Hole")))
+            if (!(front.CompareTag("Breakable") || front.CompareTag("InPortal") || front.CompareTag("Turret") || front.CompareTag("Hole") || front.CompareTag("Tile")))
                 return;
             
             playerController.setFrontObject(front);
@@ -46,7 +46,7 @@ namespace PlayerScripts
                 playerController.setIsObstruct(false);
             
 
-            if (!(front.CompareTag("Breakable") || front.CompareTag("InPortal") || front.CompareTag("Turret") || front.CompareTag("Hole")))
+            if (!(front.CompareTag("Breakable") || front.CompareTag("InPortal") || front.CompareTag("Turret") || front.CompareTag("Hole") || front.CompareTag("Tile")))
                 return;
 
             playerController.resetFrontObject();
