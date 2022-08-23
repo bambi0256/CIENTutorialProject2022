@@ -39,7 +39,7 @@ namespace TileScripts
         private void Update()
         {
             CheckPrePos();
-            CheckNextPos(); // NextPos 갖고 있음 > Sprite 바뀌기 때문에 확실
+            CheckNextPos();
             CheckCollision();
         }
 

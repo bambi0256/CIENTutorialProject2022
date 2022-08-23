@@ -1,8 +1,7 @@
 using TileScripts;
-using Script.ObjectScripts;
+using ObjectScripts;
 using UnityEngine;
 using System.Linq;
-using System.Net.NetworkInformation;
 
 namespace PlayerScripts
 {
