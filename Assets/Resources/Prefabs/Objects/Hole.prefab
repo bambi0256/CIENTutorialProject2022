@@ -138,8 +138,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.83, y: 0.83, z: 1}
   m_Children:
-  - {fileID: 3198411965953768425}
   - {fileID: 2159261552486119557}
+  - {fileID: 3198411965953768425}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -455,7 +455,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3198411965539854156}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3198411965953768427
 MonoBehaviour:
@@ -1079,7 +1079,7 @@ Transform:
   - {fileID: 3198411965629897955}
   - {fileID: 3198411966249656673}
   m_Father: {fileID: 3198411965539854156}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7501582412366179034
 MonoBehaviour:
@@ -1128,7 +1128,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:

@@ -4,28 +4,28 @@ namespace ObjectScripts
 {
     public class SwitchBarrier : MonoBehaviour
     {
-        private bool switchOn;
+        [SerializeField] private bool switchOn;
         private int defaultLayer;
 
-        // 0 is off state, 1 is on state
-        [SerializeField] private Sprite[] sprites = new Sprite[2];
+        [SerializeField] private Sprite offSprite;
+        [SerializeField] private Sprite onSprite;
         private SpriteRenderer spriteRenderer;
 
         // Start is called before the first frame update
         void Start()
         {
             this.spriteRenderer = GetComponent<SpriteRenderer>();
-            setSprite();
             defaultLayer = gameObject.layer;
+            setSprite();
         }
 
 
         private void setSprite()
         {
             if (this.switchOn)
-                this.spriteRenderer.sprite = this.sprites[1];
+                this.spriteRenderer.sprite = this.onSprite;
             else
-                this.spriteRenderer.sprite = this.sprites[0];
+                this.spriteRenderer.sprite = this.offSprite;
         }
 
 

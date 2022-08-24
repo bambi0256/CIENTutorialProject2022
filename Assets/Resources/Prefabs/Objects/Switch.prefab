@@ -99,9 +99,13 @@ MonoBehaviour:
   switchOn: 0
   switchBarrierList:
   - {fileID: 0}
+  circuitList:
+  - {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: 52df2c8b6ade147b099a43c1b25dd920, type: 3}
   - {fileID: 21300000, guid: 41701bfaba0b64e20ab0ec5637652342, type: 3}
+  offSprite: {fileID: 21300000, guid: 52df2c8b6ade147b099a43c1b25dd920, type: 3}
+  onSprite: {fileID: 21300000, guid: 41701bfaba0b64e20ab0ec5637652342, type: 3}
 --- !u!61 &6503657551159573764
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -13,8 +13,8 @@ namespace ObjectScripts
         private Circuit[] circuitScriptList;
         private int circuitCount;
 
-        // 0 is off state, 1 is on state
-        [SerializeField] private Sprite[] sprites = new Sprite[2];
+        [SerializeField] private Sprite offSprite;
+        [SerializeField] private Sprite onSprite;
         private SpriteRenderer spriteRenderer;
 
 
@@ -31,16 +31,15 @@ namespace ObjectScripts
             for (i = 0; i < this.barrierCount; i++)
             {
                 this.barrierScriptList[i] = switchBarrierList[i].GetComponent<SwitchBarrier>();
-                this.barrierScriptList[i].setSwitchOn(this.switchOn);
             }
 
             for (i = 0; i < this.circuitCount; i++)
             {
                 this.circuitScriptList[i] = circuitList[i].GetComponent<Circuit>();
-                this.circuitScriptList[i].setSwitchOn(this.switchOn);
             }
 
             this.spriteRenderer = GetComponent<SpriteRenderer>();
+
             setSprite();
         }
 
@@ -91,9 +90,9 @@ namespace ObjectScripts
         private void setSprite()
         {
             if (this.switchOn)
-                this.spriteRenderer.sprite = this.sprites[1];
+                this.spriteRenderer.sprite = this.onSprite;
             else
-                this.spriteRenderer.sprite = this.sprites[0];
+                this.spriteRenderer.sprite = this.offSprite;
         }
     }
 }
