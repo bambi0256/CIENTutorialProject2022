@@ -20,8 +20,6 @@ namespace BallScripts
         private bool cannonballHit;
         private bool blockHit;
         private bool isIntoHole;
-        private float ballStayTime;
-        private float ballStayDeltaTime;
         private bool inPortal;
         private bool onTile;
 
@@ -35,7 +33,6 @@ namespace BallScripts
         private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
-            this.ballStayTime = 5.0f;
             BallSpeed = 10f;
             this.portalDelayTime = 0.5f;
         }
