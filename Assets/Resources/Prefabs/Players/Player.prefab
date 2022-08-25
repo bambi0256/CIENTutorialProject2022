@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03c13cb68cca5149b443c33e6f1f78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flag: 0
 --- !u!61 &2744100638148855402
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -128,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06d2a98203cb5004587759f0b28068dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flag: 0
 --- !u!61 &2480691244721001764
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -219,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9c4dddd37d182408b8c1f1d2d53e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flag: 0
 --- !u!61 &8921854196978047232
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -256,6 +259,7 @@ GameObject:
   - component: {fileID: 6315000276623690134}
   - component: {fileID: 6315000276623690135}
   - component: {fileID: 6315000276623690133}
+  - component: {fileID: 3900835568972803469}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -359,6 +363,24 @@ MonoBehaviour:
   portalDelayTime: 0
   holeDelayTime: 0
   tileDelayTIme: 0
+  slowTileDelayTime: 0
+--- !u!114 &3900835568972803469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315000276623690120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d439e2d9bc8343509588297aeab51ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  durationTime: 30
+  firstFlashTime: 10
+  secondFlashTime: 5
+  defaultSprite: {fileID: 21300000, guid: 9e78bd359d8d949b080165f4f8ffd4af, type: 3}
+  brightSprite: {fileID: 21300000, guid: 3eb1ddc81754a40edb225a274c2e3c85, type: 3}
 --- !u!1 &6315000276761985039
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ff96fd9f323445c8d5293251db0e9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isCannonball: 0
   isTileOn: 0
 --- !u!58 &6315000276761985026
 CircleCollider2D:
@@ -487,6 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d5c9d36e446d8418ffb4c37dbd1bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flag: 0
 --- !u!61 &4605940062742322399
 BoxCollider2D:
   m_ObjectHideFlags: 0

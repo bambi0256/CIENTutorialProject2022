@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 301306528126979632}
   - component: {fileID: 301306528126979634}
   - component: {fileID: 301306528126979635}
+  - component: {fileID: 5976763353573016879}
   m_Layer: 8
   m_Name: Turret
   m_TagString: Turret
@@ -125,3 +126,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5976763353573016879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301306528126979639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d439e2d9bc8343509588297aeab51ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  durationTime: 10
+  firstFlashTime: 5
+  secondFlashTime: 2
+  defaultSprite: {fileID: 21300000, guid: 4b1e36690ec464e9fa6c4e876453ea00, type: 3}
+  brightSprite: {fileID: 21300000, guid: 15f9b00fab4724493af42f36f46ed919, type: 3}

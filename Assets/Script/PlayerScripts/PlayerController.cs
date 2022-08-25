@@ -71,6 +71,8 @@ namespace PlayerScripts
         private readonly bool[] Direction = {false, false, false, false, false};
         private bool isTileAround;
         private bool cannotMove;
+
+        private DurationChangeSprite durationScript;
         
     
         // Start is called before the first frame update
@@ -109,6 +111,8 @@ namespace PlayerScripts
             Left = GetComponentInChildren<CheckBoolLeft>();
 
             _playerAnchor = Anchor.GetComponent<PlayerAnchor>();
+
+            this.durationScript = GetComponent<DurationChangeSprite>();
         }
 
         
@@ -149,6 +153,7 @@ namespace PlayerScripts
                 this.delayDeltaTime += Time.deltaTime;
 
                 if (!(this.delayDeltaTime > accelDelayTime)) return;
+                this.durationScript.setTrigger();
                 acceleration();
                 this.delayDeltaTime = 0.0f;
             }

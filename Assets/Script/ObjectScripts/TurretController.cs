@@ -12,10 +12,14 @@ namespace ObjectScripts
         [SerializeField] private float pauseDelayTime;
         private float pauseDeltaTime;
 
+        private DurationChangeSprite durationScript;
+
 
         private void Start()
         {
             this.pauseDelayTime = 10.0f;
+
+            this.durationScript = GetComponent<DurationChangeSprite>();
         }
 
 
@@ -48,6 +52,7 @@ namespace ObjectScripts
         public void setIsPause()
         {
             this.isPause = true;
+            this.durationScript.setTrigger();
         }
     }
 }
