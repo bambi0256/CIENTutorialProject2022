@@ -6,13 +6,15 @@ namespace TileScripts
     public class ToSlowTile : MonoBehaviour
     {
         private bool isSlow;
-        private SpriteRenderer spriteRenderer;
+        //private SpriteRenderer spriteRenderer;
+        //[SerializeField] private Sprite slowTileSprite;
+        [SerializeField] private GameObject slowTileSpriteObject;
         private BallMove ballScript;
 
         // Start is called before the first frame update
         void Start()
         {
-            this.spriteRenderer = GetComponent<SpriteRenderer>();
+            //this.spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
 
@@ -25,8 +27,9 @@ namespace TileScripts
 
         private void setSprite()
         {
-            // change the sprite or color
-            return;
+            //this.spriteRenderer.sprite = slowTileSprite;
+
+            this.slowTileSpriteObject.SetActive(true);
         }
 
 

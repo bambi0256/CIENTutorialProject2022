@@ -376,9 +376,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d439e2d9bc8343509588297aeab51ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  durationTime: 30
-  firstFlashTime: 10
-  secondFlashTime: 5
+  durationTime: 10
+  firstFlashTime: 5
+  secondFlashTime: 2
   defaultSprite: {fileID: 21300000, guid: 9e78bd359d8d949b080165f4f8ffd4af, type: 3}
   brightSprite: {fileID: 21300000, guid: 3eb1ddc81754a40edb225a274c2e3c85, type: 3}
 --- !u!1 &6315000276761985039

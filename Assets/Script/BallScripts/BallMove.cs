@@ -33,7 +33,7 @@ namespace BallScripts
         private void Start()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
-            BallSpeed = 10f;
+            BallSpeed = 40.0f;
             this.portalDelayTime = 0.5f;
         }
 
@@ -71,17 +71,20 @@ namespace BallScripts
             if (this.blockHit)
             {
                 isGameOver = true;
+                Debug.Log("Block Hit Game Over");
             }
             
             // if ball is hit by cannonball, game over
             if (this.cannonballHit)
             {
                 isGameOver = true;
+                Debug.Log("Bullet Hit Game Over");
             }
             // if ball fall into hole, game over
             if (this.isIntoHole)
             {
                 isGameOver = true;
+                Debug.Log("Hole Game Over");
 
                 /*
                 AudioManager.instance.PlaySFX("InHole");
@@ -92,6 +95,7 @@ namespace BallScripts
             if (!this.onTile)
             {
                 isGameOver = true;
+                Debug.Log("Lost Road Game Over");
             }
 
 
