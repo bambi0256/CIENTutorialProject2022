@@ -62,7 +62,7 @@ namespace PlayerScripts
 
         private CheckLR LR;
         private CheckUD UD;
-        private bool CheckTile;
+        public bool CheckTile;
 
         private PlayerAnchor _playerAnchor;
 
@@ -111,6 +111,8 @@ namespace PlayerScripts
         
         private void Update()
         {
+            CheckTile = UD.Flag ^ LR.Flag;
+            
             // if player is hit by cannonball, player stun
             if (this.cannonballHit)
             {
@@ -261,9 +263,8 @@ namespace PlayerScripts
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                CheckTile = UD.Flag ^ LR.Flag;
-                if (!CheckTile) return;
-                BuildTile();
+                
+                if (CheckTile) BuildTile();
             }
         
 
@@ -280,10 +281,7 @@ namespace PlayerScripts
         private void BuildTile()
         {
             Instantiate(RoadTile, transform.position, Quaternion.identity);
-
-            /*
             AudioManager.instance.PlaySFX("SetNormalTile");
-            */
         }
         
         private void playerTurn(float direction)

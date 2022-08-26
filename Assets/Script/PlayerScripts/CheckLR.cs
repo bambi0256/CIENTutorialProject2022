@@ -8,7 +8,7 @@ namespace PlayerScripts
 
         private void OnTriggerStay2D(Collider2D col)
         {
-            if (col.CompareTag("Tile")) Flag = true;
+            if (col.gameObject.CompareTag("Tile")) Flag = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)

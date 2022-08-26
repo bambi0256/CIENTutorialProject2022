@@ -201,7 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b34d602e1a8dd439538a17a59c6c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BallSpeed: 0
+  BallSpeed: 40
+  ClearPOP: {fileID: 0}
+  OverPOP: {fileID: 0}
 --- !u!1 &7203464880099637353
 GameObject:
   m_ObjectHideFlags: 0
