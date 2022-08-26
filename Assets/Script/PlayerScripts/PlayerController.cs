@@ -1,7 +1,6 @@
 using TileScripts;
 using ObjectScripts;
 using UnityEngine;
-using System.Linq;
 
 namespace PlayerScripts
 {
@@ -60,16 +59,13 @@ namespace PlayerScripts
         [SerializeField] float slowTileDelayTime;
         private float breakDelayTime;
         private float breakDelayDeltaTime;
-        
-        private CheckBoolUp Up;
-        private CheckBoolRight Right;
-        private CheckBoolDown Down;
-        private CheckBoolLeft Left;
+
+        private CheckLR LR;
+        private CheckUD UD;
+        private bool CheckTile;
 
         private PlayerAnchor _playerAnchor;
-        
-        private readonly bool[] Direction = {false, false, false, false, false};
-        private bool isTileAround;
+
         private bool cannotMove;
 
         private DurationChangeSprite durationScript;
@@ -104,15 +100,12 @@ namespace PlayerScripts
             var position = transform.position;
             this.targetPosition.x = position.x;
             this.targetPosition.y = position.y;
-            
-            Up = GetComponentInChildren<CheckBoolUp>();
-            Right = GetComponentInChildren<CheckBoolRight>();
-            Down = GetComponentInChildren<CheckBoolDown>();
-            Left = GetComponentInChildren<CheckBoolLeft>();
 
             _playerAnchor = Anchor.GetComponent<PlayerAnchor>();
 
             this.durationScript = GetComponent<DurationChangeSprite>();
+            UD = GetComponentInChildren<CheckUD>();
+            LR = GetComponentInChildren<CheckLR>();
         }
 
         
@@ -268,7 +261,8 @@ namespace PlayerScripts
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                CheckBool();
+                CheckTile = UD.Flag ^ LR.Flag;
+                if (!CheckTile) return;
                 BuildTile();
             }
         
@@ -442,20 +436,6 @@ namespace PlayerScripts
             this.movingDelayTime = this.playerAccelDelayTime;
             this.isAcceleration = true;
             this.isShiftDown = false;
-        }
-        
-        private void CheckBool()
-        {
-            if (Up.Flag) Direction[1] = true;
-            else Direction[1] = false;
-            if (Right.Flag) Direction[2] = true;
-            else Direction[2] = false;
-            if (Down.Flag) Direction[3] = true;
-            else Direction[3] = false;
-            if (Left.Flag) Direction[4] = true;
-            else Direction[4] = false;
-
-            isTileAround = Direction.Count(c => c) > 0;
         }
     }
 }

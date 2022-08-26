@@ -1,3 +1,4 @@
+using System;
 using ObjectScripts;
 using UnityEngine;
 
@@ -26,12 +27,17 @@ namespace BallScripts
         private bool isGameOver;
         private bool isClear;
 
+        public GameObject ClearPOP;
+        public GameObject OverPOP;
+        private GameObject Map;
+
         private float portalDelayTime;
         private float portalDelayDeltaTime;
         private InPortal inPortalScript;
         
         private void Start()
         {
+            Map = GameObject.FindWithTag("Map");
             _rigidbody2D = GetComponent<Rigidbody2D>();
             BallSpeed = 40.0f;
             this.portalDelayTime = 0.5f;
@@ -63,6 +69,11 @@ namespace BallScripts
                 4 => Left * (Time.deltaTime * BallSpeed),
                 _ => _rigidbody2D.velocity
             };
+            
+            if (isClear || isGameOver)
+            {
+                _rigidbody2D.velocity = Vector2.zero;
+            }
         }
 
         private void CheckDeath()
@@ -73,24 +84,23 @@ namespace BallScripts
                 isGameOver = true;
                 Debug.Log("Block Hit Game Over");
             }
-            
+
             // if ball is hit by cannonball, game over
             if (this.cannonballHit)
             {
                 isGameOver = true;
                 Debug.Log("Bullet Hit Game Over");
             }
+
             // if ball fall into hole, game over
             if (this.isIntoHole)
             {
                 isGameOver = true;
                 Debug.Log("Hole Game Over");
 
-                /*
                 AudioManager.instance.PlaySFX("InHole");
-                */
             }
-
+            /*
             // if ball isn't on tile, game over
             if (!this.onTile)
             {
@@ -98,14 +108,20 @@ namespace BallScripts
                 Debug.Log("Lost Road Game Over");
             }
 
-
             if (isGameOver)
             {
                 Debug.Log("Game Over");
-                /*
+                Map.SetActive(false);
+                OverPOP.SetActive(true);
                 AudioManager.instance.PlaySFX("FailSound");
-                */
             }
+            
+            if (isClear)
+            {
+                Map.SetActive(false);
+                ClearPOP.SetActive(true);
+            }
+            */
         }
 
 
@@ -120,6 +136,28 @@ namespace BallScripts
                 this.inPortal = true;
                 this.inPortalScript = other.gameObject.GetComponent<InPortal>();
                 _rigidbody2D.velocity = Stop;
+            }
+
+            if (other.CompareTag("Tile"))
+            {
+                onTile = true;
+            }
+
+            if (other.CompareTag("Goal"))
+            {
+                isClear = true;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.CompareTag("Tile"))
+            {
+                onTile = false;
+            }
+            if (other.CompareTag("Tile") || !isClear)
+            {
+                isGameOver = true;
             }
         }
 
