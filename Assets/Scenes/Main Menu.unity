@@ -38796,19 +38796,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1188432326300741461, guid: 645ed3b05b5b84d78977d8cb02c299b6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 1188432326300741461, guid: 645ed3b05b5b84d78977d8cb02c299b6, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 1251248437399445033, guid: 645ed3b05b5b84d78977d8cb02c299b6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 1251248437399445033, guid: 645ed3b05b5b84d78977d8cb02c299b6, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6315000276623690120, guid: 645ed3b05b5b84d78977d8cb02c299b6, type: 3}
       propertyPath: m_Name
