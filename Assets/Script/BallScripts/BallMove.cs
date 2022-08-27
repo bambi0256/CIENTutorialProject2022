@@ -1,4 +1,3 @@
-using System;
 using ObjectScripts;
 using UnityEngine;
 
@@ -22,14 +21,12 @@ namespace BallScripts
         private bool blockHit;
         private bool isIntoHole;
         private bool inPortal;
-        private bool onTile;
 
         private bool isGameOver;
         private bool isClear;
 
         public GameObject ClearPOP;
         public GameObject OverPOP;
-        private GameObject Map;
 
         private float portalDelayTime;
         private float portalDelayDeltaTime;
@@ -37,7 +34,6 @@ namespace BallScripts
         
         private void Start()
         {
-            Map = GameObject.FindWithTag("Map");
             _rigidbody2D = GetComponent<Rigidbody2D>();
             BallSpeed = 40.0f;
             this.portalDelayTime = 0.5f;
@@ -69,11 +65,11 @@ namespace BallScripts
                 4 => Left * (Time.deltaTime * BallSpeed),
                 _ => _rigidbody2D.velocity
             };
-            
+            /*
             if (isClear || isGameOver)
             {
                 _rigidbody2D.velocity = Vector2.zero;
-            }
+            }*/
         }
 
         private void CheckDeath()
@@ -123,8 +119,7 @@ namespace BallScripts
             }
             */
         }
-
-
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.CompareTag("Block") || other.gameObject.CompareTag("Breakable"))
@@ -140,7 +135,6 @@ namespace BallScripts
 
             if (other.CompareTag("Tile"))
             {
-                onTile = true;
             }
 
             if (other.CompareTag("Goal"))
@@ -153,21 +147,14 @@ namespace BallScripts
         {
             if (other.CompareTag("Tile"))
             {
-                onTile = false;
-            }
-            if (other.CompareTag("Tile") || !isClear)
-            {
-                isGameOver = true;
             }
         }
-
-
+        
         public void setIsIntoHole()
         {
             this.isIntoHole = true;
         }
-
-
+        
         public void setCannonballHit()
         {
             this.cannonballHit = true;
