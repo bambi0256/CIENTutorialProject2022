@@ -41,7 +41,7 @@ namespace ObjectScripts
 
         private void Update()
         {
-            transform.Translate(this.cannonballDir * this.tileLength * this.speed * Time.deltaTime);
+            transform.Translate(this.cannonballDir * (this.tileLength * this.speed * Time.deltaTime));
         }
 
 
