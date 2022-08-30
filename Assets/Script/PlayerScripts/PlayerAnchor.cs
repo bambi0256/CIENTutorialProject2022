@@ -5,24 +5,24 @@ namespace PlayerScripts
 {
     public class PlayerAnchor : MonoBehaviour
     {
-        public bool isTileOn;
+        public bool OnSwitch;
         private GameObject parent;
         private PlayerController playerController;
 
-        // Start is called before the first frame update
         private void Start()
         {
             parent = transform.parent.gameObject;
             playerController = parent.GetComponent<PlayerController>();
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerStay2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Tile"))
+            if (other.gameObject.CompareTag("Switch") || other.gameObject.CompareTag("Circuit"))
             {
-                isTileOn = true;
+                OnSwitch = true;
             }
-            else if (other.gameObject.CompareTag("Cannonball"))
+
+            if (other.gameObject.CompareTag("Cannonball"))
             {
                 playerController.setCannonballHit();
             }
@@ -30,9 +30,9 @@ namespace PlayerScripts
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if(other.gameObject.CompareTag("Tile"))
+            if (other.gameObject.CompareTag("Switch") || other.gameObject.CompareTag("Circuit"))
             {
-                isTileOn = true;
+                OnSwitch = false;
             }
         }
     }

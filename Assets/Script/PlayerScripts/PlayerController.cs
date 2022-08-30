@@ -111,7 +111,8 @@ namespace PlayerScripts
         
         private void Update()
         {
-            CheckTile = UD.Flag ^ LR.Flag;
+            // Can I Build Tile?
+            CheckTile = (UD.Flag != LR.Flag) && !_playerAnchor.OnSwitch;
             
             // if player is hit by cannonball, player stun
             if (this.cannonballHit)
