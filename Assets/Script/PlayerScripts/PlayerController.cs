@@ -62,9 +62,8 @@ namespace PlayerScripts
 
         private CheckLR LR;
         private CheckUD UD;
+        private OnTile OnTile;
         public bool CheckTile;
-
-        private PlayerAnchor _playerAnchor;
 
         private bool cannotMove;
 
@@ -101,18 +100,17 @@ namespace PlayerScripts
             this.targetPosition.x = position.x;
             this.targetPosition.y = position.y;
 
-            _playerAnchor = Anchor.GetComponent<PlayerAnchor>();
-
             this.durationScript = GetComponent<DurationChangeSprite>();
             UD = GetComponentInChildren<CheckUD>();
             LR = GetComponentInChildren<CheckLR>();
+            OnTile = GetComponentInChildren<OnTile>();
         }
 
         
         private void Update()
         {
             // Can I Build Tile?
-            CheckTile = (UD.Flag != LR.Flag) && !_playerAnchor.OnSwitch;
+            CheckTile = (UD.Flag != LR.Flag && !OnTile.OnSwitch) || OnTile.OnOutPortal;
             
             // if player is hit by cannonball, player stun
             if (this.cannonballHit)
