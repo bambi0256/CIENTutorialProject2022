@@ -110,6 +110,7 @@ namespace BallScripts
                 Map.SetActive(false);
                 OverPOP.SetActive(true);
                 AudioManager.instance.PlaySFX("FailSound");
+                
             }
             
             if (isClear)
