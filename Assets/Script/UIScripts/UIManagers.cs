@@ -21,13 +21,25 @@ namespace UIScripts
         private static UIManagers instance;
 
 
-        public GameObject GameOverUI; //���� ������ Ȱ��ȭ�Ǵ� UI
+        public GameObject GameOverUI;
+        
+        //���� ������ Ȱ��ȭ�Ǵ� UI
 
         // ���ӿ��� UI Ȱ��ȭ
         public void SetActiveGameoverUI(bool active)
         {
             GameOverUI.SetActive(active);
         }
+
+        public void pauseGame()
+        {
+            Time.timeScale = 0f;
+        }
+        public void ResumeGame()
+        {
+            Time.timeScale = 1f;
+        }
+
 
         // ���� ����� ��ư
         /* public void RestartGame()
