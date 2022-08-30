@@ -21,12 +21,10 @@ namespace BallScripts
         private bool blockHit;
         private bool isIntoHole;
         private bool inPortal;
+        private bool inGoal;
 
         private bool isGameOver;
         private bool isClear;
-
-        public GameObject ClearPOP;
-        public GameObject OverPOP;
 
         private float portalDelayTime;
         private float portalDelayDeltaTime;
@@ -96,29 +94,17 @@ namespace BallScripts
 
                 AudioManager.instance.PlaySFX("InHole");
             }
-            /*
-            // if ball isn't on tile, game over
-            if (!this.onTile)
-            {
-                isGameOver = true;
-                Debug.Log("Lost Road Game Over");
-            }
-
-            if (isGameOver)
-            {
-                Debug.Log("Game Over");
-                Map.SetActive(false);
-                OverPOP.SetActive(true);
-                AudioManager.instance.PlaySFX("FailSound");
-                
-            }
             
-            if (isClear)
+            // if ball isn't on tile, game over
+            
+            // if ball get in GoalTIle, game clear
+            if (inGoal)
             {
-                Map.SetActive(false);
-                ClearPOP.SetActive(true);
+                isClear = true;
+                Debug.Log("Clear Game");
+                
+                // 맵 오픈 체크 함수
             }
-            */
         }
         
         private void OnTriggerEnter2D(Collider2D other)
@@ -134,23 +120,12 @@ namespace BallScripts
                 _rigidbody2D.velocity = Stop;
             }
 
-            if (other.CompareTag("Tile"))
-            {
-            }
-
             if (other.CompareTag("Goal"))
             {
-                isClear = true;
+                inGoal = true;
             }
         }
 
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.CompareTag("Tile"))
-            {
-            }
-        }
-        
         public void setIsIntoHole()
         {
             this.isIntoHole = true;
