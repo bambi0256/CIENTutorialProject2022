@@ -91,8 +91,6 @@ namespace BallScripts
             {
                 isGameOver = true;
                 Debug.Log("Hole Game Over");
-
-                AudioManager.instance.PlaySFX("InHole");
             }
             
             // if ball isn't on tile, game over
@@ -129,6 +127,8 @@ namespace BallScripts
         public void setIsIntoHole()
         {
             this.isIntoHole = true;
+
+            AudioManager.instance.PlaySFX("InHole");
         }
         
         public void setCannonballHit()

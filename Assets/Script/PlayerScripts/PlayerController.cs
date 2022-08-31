@@ -36,7 +36,7 @@ namespace PlayerScripts
         private bool buttonFlagDown;
         private bool buttonFlagLeft;
         private bool buttonFlagRight;
-
+        
         private bool cannonballHit;
         private float hitDeltaTime;
         private float stunTime;
@@ -44,12 +44,18 @@ namespace PlayerScripts
         [SerializeField] private bool isObstruct;
 
         private GameObject frontObject;
+        private GameObject inPortalObject;
         public GameObject RoadTile;
         public GameObject Anchor;
         private bool isExistFrontObject;
         private bool isInteracting;
         private bool frontIsBreakable;
+        private bool isKeyEDown;
+        private bool isOnInPortal;
+        private bool inPortalTrigger;
         private float interactDelayTime;
+        private float keyEtriggerTime;
+        private float keyEtriggerDeltaTime;
 
         [SerializeField] float breakableDelayTime;
         [SerializeField] float turretDelayTime;
@@ -94,6 +100,7 @@ namespace PlayerScripts
             this.holeDelayTime = 2.0f;
             this.breakDelayTime = 0.2f;
             this.slowTileDelayTime = 0.4f;
+            this.keyEtriggerTime = 2.0f;
 
             playerTurn(180.0f);
             var position = transform.position;
@@ -123,8 +130,19 @@ namespace PlayerScripts
 
                 this.isInteracting = false;
                 this.isShiftDown = false;
+                this.isKeyEDown = false;
 
                 this.delayDeltaTime = 0.0f;
+            }
+
+            //if moving, keep moving
+            if (!(Mathf.Approximately(transform.position.x, targetPosition.x) && Mathf.Approximately(transform.position.y, targetPosition.y)))
+            {
+                if (isMoving) this.speed = this.movingSpeed;
+                else this.speed = this.moveSpeed;
+
+                transform.position = Vector3.MoveTowards(transform.position, this.targetPosition, this.speed);
+                return;
             }
 
             // if player is acceleration state
@@ -152,6 +170,31 @@ namespace PlayerScripts
                 this.delayDeltaTime = 0.0f;
             }
 
+
+            if (this.isKeyEDown)
+            {
+                this.keyEtriggerDeltaTime += Time.deltaTime;
+                Debug.Log("e down");
+
+                if (this.isKeyEDown && Input.GetKeyUp(KeyCode.E))
+                {
+                    this.isKeyEDown = false;
+
+                    if (this.inPortalTrigger)
+                        setInPortalDelayTime();
+                    else
+                        checkFrontObject();
+                    
+                    Debug.Log("in portal");
+                }
+
+                if (!(this.keyEtriggerDeltaTime > keyEtriggerTime)) return;
+                
+                this.inPortalTrigger = true;
+
+                this.keyEtriggerDeltaTime = 0.0f;
+            }
+
             // if player is interacting
             if (this.isInteracting)
             {
@@ -163,9 +206,7 @@ namespace PlayerScripts
 
                     if (this.breakDelayDeltaTime > this.breakDelayTime)
                     {
-                        /*
                         AudioManager.instance.PlaySFX("BreakingBrick");
-                        */
                         this.breakDelayDeltaTime = 0.0f;
                     }
                 }
@@ -174,17 +215,10 @@ namespace PlayerScripts
                 interact();
                 this.delayDeltaTime = 0.0f;
                 this.frontIsBreakable = false;
+                this.isInteracting = false;
+                this.interactDelayTime = 0.0f;
             }
         
-            //if moving, keep moving
-            if (!(Mathf.Approximately(transform.position.x, targetPosition.x) && Mathf.Approximately(transform.position.y, targetPosition.y)))
-            {
-                if (isMoving) this.speed = this.movingSpeed;
-                else this.speed = this.moveSpeed;
-
-                transform.position = Vector3.MoveTowards(transform.position, this.targetPosition, this.speed);
-                return;
-            }
 
             if (this.keyDownFlag)
             {
@@ -250,7 +284,10 @@ namespace PlayerScripts
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                checkFrontObject();
+                if (this.isOnInPortal)
+                    this.isKeyEDown = true;
+                else
+                    checkFrontObject();
             }
 
 
@@ -342,9 +379,7 @@ namespace PlayerScripts
         {
             this.cannonballHit = true;
 
-            /*
             AudioManager.instance.PlaySFX("HitByBullet");
-            */
         }
 
 
@@ -364,6 +399,7 @@ namespace PlayerScripts
         public void resetFrontObject()
         {
             this.isExistFrontObject = false;
+            this.isInteracting = false;
         }
 
 
@@ -380,8 +416,6 @@ namespace PlayerScripts
             }
             else if (this.frontObject.CompareTag("Turret"))
                 this.interactDelayTime = this.turretDelayTime;
-            else if (this.frontObject.CompareTag("InPortal"))
-                this.interactDelayTime = this.portalDelayTime;
             else if (this.frontObject.CompareTag("Hole"))
                 this.interactDelayTime = this.holeDelayTime;
             else if (this.frontObject.CompareTag("Tile"))
@@ -392,24 +426,26 @@ namespace PlayerScripts
         // ReSharper disable Unity.PerformanceAnalysis
         private void interact()
         {
+            if (this.inPortalTrigger)
+            {
+                transform.position = this.inPortalObject.GetComponent<InPortal>().getDestinationPosition();
+
+                this.targetPosition = transform.position;
+                this.inPortalTrigger = false;
+
+                return;
+            }
+
+
             if (this.frontObject.CompareTag("Breakable"))
             {
                 Destroy(this.frontObject);
-                /*
+
                 AudioManager.instance.PlaySFX("DestroyingBrick");
-                */
             }
             else if (this.frontObject.CompareTag("Turret"))
             {
                 this.frontObject.GetComponent<TurretController>().setIsPause();
-            }
-            else if (this.frontObject.CompareTag("InPortal"))
-            {
-                transform.position = this.frontObject.GetComponent<InPortal>().getDestinationPosition();
-                /*
-                AudioManager.instance.PlaySFX("InPortal");
-                */
-                this.targetPosition = transform.position;
             }
             else if (this.frontObject.CompareTag("Hole"))
             {
@@ -423,8 +459,6 @@ namespace PlayerScripts
             {
                 this.frontObject.GetComponent<ToSlowTile>().setIsSlow();
             }
-
-            this.isInteracting = false;
         }
 
 
@@ -433,6 +467,26 @@ namespace PlayerScripts
             this.movingDelayTime = this.playerAccelDelayTime;
             this.isAcceleration = true;
             this.isShiftDown = false;
+        }
+
+
+        public void setIsOnInPortal(bool flag)
+        {
+            this.isOnInPortal = flag;
+        }
+
+
+        public void setInPortalObject(GameObject inPortal)
+        {
+            this.inPortalObject = inPortal;
+        }
+
+
+        private void setInPortalDelayTime()
+        {
+            this.interactDelayTime = this.portalDelayTime;
+            this.isInteracting = true;
+            AudioManager.instance.PlaySFX("InPortal");
         }
     }
 }

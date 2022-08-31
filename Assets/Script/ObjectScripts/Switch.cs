@@ -51,9 +51,7 @@ namespace ObjectScripts
                 switchToggle();
                 setSprite();
 
-                /*
                 AudioManager.instance.PlaySFX("Switch");
-                */
             }
         }
 
