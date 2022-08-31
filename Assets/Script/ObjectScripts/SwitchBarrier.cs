@@ -19,7 +19,7 @@ namespace ObjectScripts
             this.spriteRenderer = GetComponent<SpriteRenderer>();
             defaultLayer = gameObject.layer;
             setSprite();
-
+            toggleLayer();
             this.barrierCircuitScript = transform.GetChild(0).GetComponent<BarrierCircuit>();
         }
 
