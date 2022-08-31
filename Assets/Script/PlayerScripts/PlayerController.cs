@@ -174,25 +174,20 @@ namespace PlayerScripts
             if (this.isKeyEDown)
             {
                 this.keyEtriggerDeltaTime += Time.deltaTime;
-                Debug.Log("e down");
 
-                if (this.isKeyEDown && Input.GetKeyUp(KeyCode.E))
+                if (Input.GetKeyUp(KeyCode.E))
                 {
                     this.isKeyEDown = false;
-
-                    if (this.inPortalTrigger)
-                        setInPortalDelayTime();
-                    else
-                        checkFrontObject();
-                    
-                    Debug.Log("in portal");
+                    checkFrontObject();
+                    this.keyEtriggerDeltaTime = 0.0f;
                 }
 
                 if (!(this.keyEtriggerDeltaTime > keyEtriggerTime)) return;
-                
-                this.inPortalTrigger = true;
 
+                setInPortalDelayTime();
+                this.inPortalTrigger = true;
                 this.keyEtriggerDeltaTime = 0.0f;
+                this.isKeyEDown = false;
             }
 
             // if player is interacting
