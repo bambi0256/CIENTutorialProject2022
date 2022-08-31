@@ -21,11 +21,16 @@ namespace PlayerScripts
         {
             front = other.gameObject;
 
+            Debug.Log(front.tag);
+
             if (!(front.CompareTag("Breakable") || front.CompareTag("Turret") || front.CompareTag("Hole") || front.CompareTag("Tile")))
             {
+                Debug.Log("enter");
                 playerController.resetFrontObject();
                 return;
             }
+
+            Debug.Log(front.tag);
             
             playerController.setFrontObject(front);
         }
@@ -55,7 +60,8 @@ namespace PlayerScripts
             if (!(front.CompareTag("Breakable") || front.CompareTag("Turret") || front.CompareTag("Hole") || front.CompareTag("Tile")))
                 return;
 
-            if (this.isExistFront) return;
+
+            //if (this.isExistFront) return;
             
             playerController.resetFrontObject();
         }

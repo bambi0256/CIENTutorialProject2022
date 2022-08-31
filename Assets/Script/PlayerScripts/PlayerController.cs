@@ -118,6 +118,8 @@ namespace PlayerScripts
         {
             // Can I Build Tile?
             CheckTile = (UD.Flag != LR.Flag && !OnTile.OnSwitch) || OnTile.OnOutPortal;
+
+            Debug.Log(isExistFrontObject);
             
             // if player is hit by cannonball, player stun
             if (this.cannonballHit)
@@ -388,6 +390,8 @@ namespace PlayerScripts
         {
             this.frontObject = front;
             this.isExistFrontObject = true;
+
+            Debug.Log(isExistFrontObject);
         }
 
 
@@ -400,7 +404,12 @@ namespace PlayerScripts
 
         private void checkFrontObject()
         {
+            Debug.Log(isInteracting);
+            Debug.Log(isExistFrontObject);
+
             if (!isExistFrontObject) return;
+
+            Debug.Log("check front");
 
             this.isInteracting = true;
 
@@ -452,7 +461,7 @@ namespace PlayerScripts
             }
             else if (this.frontObject.CompareTag("Tile"))
             {
-                this.frontObject.GetComponent<ToSlowTile>().setIsSlow();
+                this.frontObject.GetComponent<TileCheckFront>().setIsSlow();
             }
         }
 
