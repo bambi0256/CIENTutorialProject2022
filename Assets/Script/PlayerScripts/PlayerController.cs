@@ -491,7 +491,8 @@ namespace PlayerScripts
 
             if (this.frontObject.CompareTag("Breakable"))
             {
-                Destroy(this.frontObject);
+                //Destroy(this.frontObject);
+                this.frontObject.SetActive(false);
 
                 AudioManager.instance.PlaySFX("DestroyingBrick");
             }
