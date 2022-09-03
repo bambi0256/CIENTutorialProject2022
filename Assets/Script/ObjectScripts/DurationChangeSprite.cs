@@ -12,7 +12,8 @@ namespace ObjectScripts
         private float secondFlashCycleTime;
         private float firstFlashDeltaTime;
         private float secondFlashDeltaTime;
-        [SerializeField] private Sprite defaultSprite;
+        private Sprite defaultSprite;
+        [SerializeField] private Sprite basicSprite;
         [SerializeField] private Sprite brightSprite;
         private SpriteRenderer spriteRenderer;
         private bool trigger;
@@ -24,12 +25,13 @@ namespace ObjectScripts
             this.spriteRenderer = GetComponent<SpriteRenderer>();
             this.firstFlashCycleTime = 0.25f;
             this.secondFlashCycleTime = 0.15f;
+            this.defaultSprite = this.spriteRenderer.sprite;
         }
 
 
         private void OnEnable()
         {
-            this.spriteRenderer.sprite = this.defaultSprite;
+            resetSprite();
             this.trigger = false;
             this.isBright = false;
             
@@ -50,7 +52,7 @@ namespace ObjectScripts
                 {
                     this.trigger = false;
                     this.isBright = false;
-                    toggleSprite();
+                    resetSprite();
                     this.durationDeltaTime = 0.0f;
                     this.secondFlashDeltaTime = 0.0f;
                     this.firstFlashDeltaTime = 0.0f;
@@ -85,6 +87,12 @@ namespace ObjectScripts
         }
 
 
+        private void resetSprite()
+        {
+            this.spriteRenderer.sprite = this.defaultSprite;
+        }
+
+
         private void toggleSprite()
         {
             if (this.isBright)
@@ -94,7 +102,7 @@ namespace ObjectScripts
             }
             else
             {
-                this.spriteRenderer.sprite = this.defaultSprite;
+                this.spriteRenderer.sprite = this.basicSprite;
                 this.isBright = true;
             }
         }
