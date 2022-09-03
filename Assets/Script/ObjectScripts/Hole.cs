@@ -14,6 +14,7 @@ namespace ObjectScripts
 
         private void Awake()
         {
+            this.spriteRenderer = GetComponent<SpriteRenderer>();
             this.defaultSprite = this.sprite;
         }
         
@@ -26,7 +27,6 @@ namespace ObjectScripts
         // Start is called before the first frame update
         private void Start()
         {
-            this.spriteRenderer = GetComponent<SpriteRenderer>();
             this.aroundHole = GetComponentInChildren<AroundHole>();
         }
 
