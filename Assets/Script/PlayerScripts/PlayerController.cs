@@ -6,6 +6,7 @@ namespace PlayerScripts
 {
     public class PlayerController : MonoBehaviour
     {
+        private Vector3 initialPosition;
         private Vector3 targetPosition;
         private Vector3 prePosition;
         [SerializeField] private float tileLength = 0.83f;
@@ -75,6 +76,57 @@ namespace PlayerScripts
 
         private DurationChangeSprite durationScript;
         
+        private GameObject parentMap;
+        [SerializeField] private GameObject generatedObjectsPrefab;
+        private GameObject generatedObjects;
+
+
+        private void Awake()
+        {
+            this.initialPosition = transform.position;
+        }
+
+        private void OnEnable()
+        {
+            this.isExistFrontObject = false;
+            this.isInteracting = false;
+            this.frontIsBreakable = false;
+            this.isKeyEDown = false;
+            this.isOnInPortal = false;
+            this.inPortalTrigger = false;
+            this.cannonballHit = false;
+            this.keyDownFlag = false;
+            this.buttonFlagUp = false;
+            this.buttonFlagDown = false;
+            this.buttonFlagLeft = false;
+            this.buttonFlagRight = false;
+            this.isShiftDown = false;
+            this.isAcceleration = false;
+            this.isMoving = false;
+            this.CheckTile = false;
+
+            this.delayDeltaTime = 0.0f;
+            this.hitDeltaTime = 0.0f;
+            this.accelDurationDeltaTime = 0.0f;
+            this.keyEtriggerDeltaTime = 0.0f;
+            this.movingTriggerDeltaTime = 0.0f;
+            this.movingDelayDeltaTime = 0.0f;
+            this.turnDelayDeltaTime = 0.0f;
+            this.breakDelayDeltaTime = 0.0f;
+
+            this.movingDelayTime = this.playerMovingDelayTime;
+
+            this.parentMap = transform.parent.gameObject;
+            this.generatedObjects = Instantiate(this.generatedObjectsPrefab) as GameObject;
+            this.generatedObjects.transform.parent = this.parentMap.transform;
+
+            playerTurn(180.0f);
+            transform.position = initialPosition;
+            var position = initialPosition;
+            this.targetPosition.x = position.x;
+            this.targetPosition.y = position.y;
+        }
+
     
         // Start is called before the first frame update
         private void Start()
@@ -102,11 +154,6 @@ namespace PlayerScripts
             this.slowTileDelayTime = 0.4f;
             this.keyEtriggerTime = 2.0f;
 
-            playerTurn(180.0f);
-            var position = transform.position;
-            this.targetPosition.x = position.x;
-            this.targetPosition.y = position.y;
-
             this.durationScript = GetComponent<DurationChangeSprite>();
             UD = GetComponentInChildren<CheckUD>();
             LR = GetComponentInChildren<CheckLR>();
@@ -119,7 +166,7 @@ namespace PlayerScripts
             // Can I Build Tile?
             CheckTile = (UD.Flag != LR.Flag && !OnTile.OnSwitch) || OnTile.OnOutPortal;
 
-            Debug.Log(isExistFrontObject);
+            //Debug.Log(isExistFrontObject);
             
             // if player is hit by cannonball, player stun
             if (this.cannonballHit)
@@ -313,7 +360,8 @@ namespace PlayerScripts
 
         private void BuildTile()
         {
-            Instantiate(RoadTile, transform.position, Quaternion.identity);
+            GameObject tile = Instantiate(RoadTile, transform.position, Quaternion.identity) as GameObject;
+            tile.transform.parent = this.generatedObjects.transform;
             AudioManager.instance.PlaySFX("SetNormalTile");
         }
         
@@ -391,7 +439,7 @@ namespace PlayerScripts
             this.frontObject = front;
             this.isExistFrontObject = true;
 
-            Debug.Log(isExistFrontObject);
+            //Debug.Log(isExistFrontObject);
         }
 
 
@@ -404,12 +452,12 @@ namespace PlayerScripts
 
         private void checkFrontObject()
         {
-            Debug.Log(isInteracting);
-            Debug.Log(isExistFrontObject);
+            //Debug.Log(isInteracting);
+            //Debug.Log(isExistFrontObject);
 
             if (!isExistFrontObject) return;
 
-            Debug.Log("check front");
+            //Debug.Log("check front");
 
             this.isInteracting = true;
 

@@ -35,6 +35,18 @@ namespace BallScripts
             _rigidbody2D = GetComponent<Rigidbody2D>();
             BallSpeed = 40.0f;
             this.portalDelayTime = 0.5f;
+
+            this.portalDelayDeltaTime = 0.0f;
+
+            this.cannonballHit = false;
+            this.blockHit = false;
+            this.isIntoHole = false;
+            this.inPortal = false;
+            this.inGoal = false;
+            this.isGameOver = false;
+            this.isClear = false;
+
+            _rigidbody2D.velocity = Stop;
         }
 
         private void FixedUpdate()

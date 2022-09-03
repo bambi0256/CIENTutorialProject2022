@@ -17,6 +17,24 @@ namespace ObjectScripts
         [SerializeField] private Sprite onSprite;
         private SpriteRenderer spriteRenderer;
 
+        private bool defaultSwitchOn;
+
+
+        private void Awake()
+        {
+            this.defaultSwitchOn = this.switchOn;
+
+            this.spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+
+        private void OnEnable()
+        {
+            this.switchOn = this.defaultSwitchOn;
+
+            setSprite();
+        }
+
 
         private void Start()
         {
@@ -37,10 +55,6 @@ namespace ObjectScripts
             {
                 this.circuitScriptList[i] = circuitList[i].GetComponent<Circuit>();
             }
-
-            this.spriteRenderer = GetComponent<SpriteRenderer>();
-
-            setSprite();
         }
 
 

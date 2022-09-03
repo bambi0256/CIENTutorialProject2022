@@ -349,6 +349,7 @@ MonoBehaviour:
   tileDelayTIme: 0
   slowTileDelayTime: 0
   CheckTile: 0
+  generatedObjectsPrefab: {fileID: 7096942437319180290, guid: ff8d276af6239432baaa692ad501791e, type: 3}
 --- !u!114 &3900835568972803469
 MonoBehaviour:
   m_ObjectHideFlags: 0

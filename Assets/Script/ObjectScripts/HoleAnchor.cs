@@ -6,6 +6,20 @@ namespace ObjectScripts
     {
         private bool isClose;
         private Hole parentScript;
+        private int defaultLayer;
+
+
+        private void Awake()
+        {
+            this.defaultLayer = gameObject.layer;
+        }
+
+
+        private void OnEnable()
+        {
+            this.isClose = false;
+            gameObject.layer = this.defaultLayer;
+        }
 
         // Start is called before the first frame update
         void Start()

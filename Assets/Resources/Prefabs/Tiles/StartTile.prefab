@@ -475,6 +475,7 @@ MonoBehaviour:
   Ball: {fileID: 2203239459036665371, guid: b0f47761b12d8bf4f83fa002048f7241, type: 3}
   DelayTime: 5
   NextPos: 0
+  generatedObjectsPrefab: {fileID: 7096942437319180290, guid: ff8d276af6239432baaa692ad501791e, type: 3}
 --- !u!61 &2000218076468971509
 BoxCollider2D:
   m_ObjectHideFlags: 0

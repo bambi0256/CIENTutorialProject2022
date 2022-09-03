@@ -13,13 +13,30 @@ namespace ObjectScripts
 
         private BarrierCircuit barrierCircuitScript;
 
+        private bool defaultSwitchOn;
+
+
+        private void Awake()
+        {
+            this.defaultSwitchOn = this.switchOn;
+            this.defaultLayer = gameObject.layer;
+
+            this.spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+
+        private void OnEnable()
+        {
+            this.switchOn = this.defaultSwitchOn;
+
+            setSprite();
+            toggleLayer();
+        }
+
+
         // Start is called before the first frame update
         void Start()
         {
-            this.spriteRenderer = GetComponent<SpriteRenderer>();
-            defaultLayer = gameObject.layer;
-            setSprite();
-            toggleLayer();
             this.barrierCircuitScript = transform.GetChild(0).GetComponent<BarrierCircuit>();
         }
 

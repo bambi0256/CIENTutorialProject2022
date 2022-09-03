@@ -14,6 +14,22 @@ namespace ObjectScripts
 
         private DurationChangeSprite durationScript;
 
+        private GameObject parentMap;
+        [SerializeField] private GameObject generatedObjectsPrefab;
+        private GameObject generatedObjects;
+
+
+        private void OnEnable()
+        {
+            this.parentMap = transform.parent.gameObject;
+            this.generatedObjects = Instantiate(this.generatedObjectsPrefab) as GameObject;
+            this.generatedObjects.transform.parent = this.parentMap.transform;
+
+            this.deltaTime = 0.0f;
+            this.isPause = false;
+            this.pauseDeltaTime = 0.0f;
+        }
+
 
         private void Start()
         {
@@ -42,6 +58,8 @@ namespace ObjectScripts
                 GameObject cannonball = Instantiate(cannonballPrefab) as GameObject;
                 cannonball.transform.position = transform.position;
                 cannonball.transform.rotation = transform.rotation;
+
+                cannonball.transform.parent = this.generatedObjects.transform;
 
                 deltaTime = 0.0f;
             }

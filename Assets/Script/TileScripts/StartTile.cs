@@ -20,10 +20,17 @@ namespace TileScripts
         
         [SerializeField]private int NextPos;
 
+        private GameObject parentMap;
+        [SerializeField] private GameObject generatedObjectsPrefab;
+        private GameObject generatedObjects;
+
+        private Vector3 BallPos;
+
+
         private void Awake()
         {
             var position = transform.position;
-            var BallPos = new Vector3(position.x, position.y, position.z - 1);
+            BallPos = new Vector3(position.x, position.y, position.z - 1);
             Up = GetComponentInChildren<CheckBoolUp>();
             Right = GetComponentInChildren<CheckBoolRight>();
             Down = GetComponentInChildren<CheckBoolDown>();
@@ -31,9 +38,31 @@ namespace TileScripts
             _sprite = GetComponent<SpriteRenderer>();
             RoadSp = Resources.LoadAll<Sprite>("RoadSp");
             DelayTime = 5.0f;
-            Instantiate(Ball, BallPos, Quaternion.identity);
+        }
+
+
+        private void OnEnable()
+        {
+            this.canStart = false;
+
+            this.NextPos = 0;
+            BallMove.BallDir = NextPos;
+
+            this.parentMap = transform.parent.gameObject;
+            this.generatedObjects = Instantiate(this.generatedObjectsPrefab) as GameObject;
+            this.generatedObjects.transform.parent = this.parentMap.transform;
+
+            GameObject ball = Instantiate(Ball, BallPos, Quaternion.identity) as GameObject;
+            ball.transform.parent = this.generatedObjects.transform;
             Invoke(nameof(CanStart), DelayTime);
         }
+
+
+        private void OnDisable()
+        {
+            Destroy(this.generatedObjects);
+        }
+
 
         private void CanStart()
         {

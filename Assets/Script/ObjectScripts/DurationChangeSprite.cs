@@ -18,13 +18,26 @@ namespace ObjectScripts
         private bool trigger;
         private bool isBright;
 
-        // Start is called before the first frame update
-        void Start()
+
+        private void Awake()
         {
             this.spriteRenderer = GetComponent<SpriteRenderer>();
             this.firstFlashCycleTime = 0.25f;
             this.secondFlashCycleTime = 0.15f;
         }
+
+
+        private void OnEnable()
+        {
+            this.spriteRenderer.sprite = this.defaultSprite;
+            this.trigger = false;
+            this.isBright = false;
+            
+            this.durationDeltaTime = 0.0f;
+            this.firstFlashDeltaTime = 0.0f;
+            this.secondFlashDeltaTime = 0.0f;
+        }
+        
 
         // Update is called once per frame
         void Update()

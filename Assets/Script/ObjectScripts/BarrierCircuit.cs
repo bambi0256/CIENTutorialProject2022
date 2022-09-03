@@ -10,13 +10,24 @@ namespace ObjectScripts
         [SerializeField] private Sprite onSprite;
         private SpriteRenderer spriteRenderer;
 
-        // Start is called before the first frame update
-        void Start()
+        private bool defaultSwitchOn;
+
+
+        private void Awake()
         {
+            this.defaultSwitchOn = this.switchOn;
+
             this.spriteRenderer = GetComponent<SpriteRenderer>();
-            setSprite();
         }
 
+
+        private void OnEnable()
+        {
+            this.switchOn = this.defaultSwitchOn;
+
+            setSprite();
+        }
+        
 
         private void setSprite()
         {

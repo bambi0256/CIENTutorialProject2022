@@ -16,6 +16,14 @@ namespace ObjectScripts
         private float ballStayDeltaTime;
 
 
+        private void OnEnable()
+        {
+            this.isClose = false;
+            
+            outHole();
+        }
+
+
         // Start is called before the first frame update
         void Start()
         {
