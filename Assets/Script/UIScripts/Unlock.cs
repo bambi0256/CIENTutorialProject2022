@@ -7,6 +7,7 @@ namespace UIScripts
     {
         //private Sprite LockImage;
         public GameObject LockImage;
+        public GameObject OpenImage;
         public Button button;
         public GameObject text;
 
@@ -30,6 +31,8 @@ namespace UIScripts
             button.interactable = true;
             //button.image.sprite = null;
             text.SetActive(true);
+            if (OpenImage != null)
+            { OpenImage.SetActive(true); }
             LockImage.SetActive(false);
         }
     }
