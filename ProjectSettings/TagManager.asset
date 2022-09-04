@@ -23,6 +23,7 @@ TagManager:
   - AroundHole
   - Goal
   - Map
+  - BallTag
   layers:
   - Default
   - TransparentFX

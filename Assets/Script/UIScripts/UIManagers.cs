@@ -20,17 +20,6 @@ namespace UIScripts
 
         private static UIManagers instance;
 
-
-        public GameObject GameOverUI;
-        
-        //���� ������ Ȱ��ȭ�Ǵ� UI
-
-        // ���ӿ��� UI Ȱ��ȭ
-        public void SetActiveGameoverUI(bool active)
-        {
-            GameOverUI.SetActive(active);
-        }
-
         public void pauseGame()
         {
             Time.timeScale = 0f;
@@ -40,15 +29,6 @@ namespace UIScripts
             Time.timeScale = 1f;
         }
 
-
-        // ���� ����� ��ư
-        /* public void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-   */
-
-        // ���� ���� ��ư
         public void OnClickQuit()
         {
 #if UNITY_EDITOR

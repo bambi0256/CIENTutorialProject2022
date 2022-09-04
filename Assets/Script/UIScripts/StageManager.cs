@@ -1,153 +1,151 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class StageManager : MonoBehaviour
+namespace UIScripts
 {
-    [SerializeField] GameObject[] NextStages;
-    [SerializeField] GameObject ClearUI;
-    [SerializeField] GameObject[] BubbleUI;
-    [SerializeField] GameObject[] SetBack;
-    int currentStage= 0;
-
-    public void ShowClearUI()
+    public class StageManager : MonoBehaviour
     {
-        ClearUI.SetActive(true);
+        [SerializeField] private GameObject[] LockedStages;
+        [SerializeField] private Unlock[] Locked;
+        [SerializeField] private GameObject[] NextStages;
+        [SerializeField] private GameObject ClearUI;
+        [SerializeField] private GameObject[] BubbleUI;
+        [SerializeField] private GameObject[] SetBack;
+        private int currentStage;
 
-    }
-
-    public void NextStageBtn()
-    {
-        for (int i = 0; i < NextStages.Length; i++)
+        private void Awake()
         {
-            if (NextStages[i].activeSelf == true) { currentStage = i; break; }
+            for (var i = 0; i < LockedStages.Length; i++)
+            {
+                Locked[i] = LockedStages[i].GetComponent<Unlock>();
+            }
+        }
+        
+        public void UnlockNext()
+        {
+            Locked[currentStage].UnLockStage();
         }
 
-        NextStages[currentStage++].SetActive(false);
-        NextStages[currentStage].SetActive(true);
-        SetStageBack();
-
-        ClearUI.SetActive(false);
-
-
-        if (NextStages[currentStage] == NextStages[0])
+        public void NextStageBtn()
         {
-            BubbleUI[0].SetActive(true);
+            for (var i = 0; i < NextStages.Length; i++)
+            {
+                if (NextStages[i].activeSelf) { currentStage = i; break; }
+            }
 
-            Invoke("DestroyInfo", 4f);
+            NextStages[currentStage++].SetActive(false);
+            NextStages[currentStage].SetActive(true);
+            SetStageBack();
+
+            ClearUI.SetActive(false);
+
+
+            if (NextStages[currentStage] == NextStages[0])
+            {
+                BubbleUI[0].SetActive(true);
+
+                Invoke(nameof(DestroyInfo), 4f);
+            }
+            else if (NextStages[currentStage] == NextStages[3])
+            {
+                BubbleUI[1].SetActive(true);
+                Invoke(nameof(DestroyInfo), 18f);
+            }
+            else if (NextStages[currentStage] == NextStages[4])
+            {
+                BubbleUI[2].SetActive(true);
+                Invoke(nameof(DestroyInfo), 15f);
+            }
+            else if (NextStages[currentStage] == NextStages[6])
+            {
+                BubbleUI[3].SetActive(true);
+                Invoke(nameof(DestroyInfo), 10f);
+            }
+            else if (NextStages[currentStage] == NextStages[7])
+            {
+                BubbleUI[4].SetActive(true);
+                Invoke(nameof(DestroyInfo), 15f);
+            }
         }
-        else if (NextStages[currentStage] == NextStages[3])
+
+        private void SetStageBack()
         {
-            BubbleUI[1].SetActive(true);
-            Invoke("DestroyInfo", 18f);
+            if (NextStages[currentStage] == NextStages[3])
+            {
+                SetBack[0].SetActive(false);
+                SetBack[1].SetActive(true);
+            }
+            if (NextStages[currentStage] == NextStages[6])
+            {
+                SetBack[1].SetActive(false);
+                SetBack[2].SetActive(true);
+            }
+            if (NextStages[currentStage] == NextStages[9])
+            {
+                SetBack[2].SetActive(false);
+                SetBack[3].SetActive(true);
+            }
         }
-        else if (NextStages[currentStage] == NextStages[4])
+        public void DestroyInfo()
         {
-            BubbleUI[2].SetActive(true);
-            Invoke("DestroyInfo", 15f);
+            for (var k = 0; k < 5; k++)
+                BubbleUI[k].SetActive(false);
         }
-        else if (NextStages[currentStage] == NextStages[6])
+
+        public void SelectStage()
         {
-            BubbleUI[3].SetActive(true);
-            Invoke("DestroyInfo", 10f);
+
+            for (int i = 0; i < NextStages.Length; i++)
+            {
+                if (NextStages[i].activeSelf) { currentStage = i; break; }
+            }
+            SetStageBack();
+
+            if (NextStages[currentStage] == NextStages[0])
+            {
+                BubbleUI[0].SetActive(true);
+
+                Invoke(nameof(DestroyInfo), 4f);
+            }
+            else if (NextStages[currentStage] == NextStages[3])
+            {
+                BubbleUI[1].SetActive(true);
+                Invoke(nameof(DestroyInfo), 18f);
+            }
+            else if (NextStages[currentStage] == NextStages[4])
+            {
+                BubbleUI[2].SetActive(true);
+                Invoke(nameof(DestroyInfo), 15f);
+            }
+            else if (NextStages[currentStage] == NextStages[6])
+            {
+                BubbleUI[3].SetActive(true);
+                Invoke(nameof(DestroyInfo), 10f);
+            }
+            else if (NextStages[currentStage] == NextStages[7])
+            {
+                BubbleUI[4].SetActive(true);
+                Invoke(nameof(DestroyInfo), 15f);
+            }
+
         }
-        /*else if (NextStages[currentStage] == NextStages[7])
+
+
+        public void QuitBtn()
         {
-            BubbleUI[4].SetActive(true);
-            Invoke("DestroyInfo", 15f);
-        }*/
-    }
-    public void SetStageBack()
-    {
-        if (NextStages[currentStage] == NextStages[3])
-        {
-            SetBack[0].SetActive(false);
-            SetBack[1].SetActive(true);
+            NextStages[currentStage].SetActive(false);
         }
-        if (NextStages[currentStage] == NextStages[6])
+        public void restartBtn()
         {
-            SetBack[1].SetActive(false);
-            SetBack[2].SetActive(true);
+
+
+            NextStages[currentStage].SetActive(false);
+            NextStages[currentStage].SetActive(true);
+
         }
-        if (NextStages[currentStage] == NextStages[9])
+        public void Level1()
         {
-            SetBack[2].SetActive(false);
-            SetBack[3].SetActive(true);
+            Invoke(nameof(DestroyInfo), 5f);
         }
-    }
-    public void DestroyInfo()
-    {
-        for (int k = 0; k < 5; k++)
-            BubbleUI[k].SetActive(false);
-    }
-
-    public void SelectStage()
-    {
-
-        for (int i = 0; i < NextStages.Length; i++)
-        {
-            if (NextStages[i].activeSelf == true) { currentStage = i; break; }
-        }
-        SetStageBack();
-
-        if (NextStages[currentStage] == NextStages[0])
-        {
-            BubbleUI[0].SetActive(true);
-
-            Invoke("DestroyInfo", 4f);
-        }
-        else if (NextStages[currentStage] == NextStages[3])
-        {
-            BubbleUI[1].SetActive(true);
-            Invoke("DestroyInfo", 18f);
-        }
-        else if (NextStages[currentStage] == NextStages[4])
-        {
-            BubbleUI[2].SetActive(true);
-            Invoke("DestroyInfo", 15f);
-        }
-        else if (NextStages[currentStage] == NextStages[6])
-        {
-            BubbleUI[3].SetActive(true);
-            Invoke("DestroyInfo", 10f);
-        }
-        /*else if (NextStages[currentStage] == NextStages[7])
-        {
-            BubbleUI[4].SetActive(true);
-            Invoke("DestroyInfo", 15f);
-        }
-        */
-
-    }
-
-
-    public void QuitBtn()
-    {
-        NextStages[currentStage].SetActive(false);
-    }
-    public void restartBtn()
-    {
-
-
-        NextStages[currentStage].SetActive(false);
-        NextStages[currentStage].SetActive(true);
-
-    }
-    public void Level1()
-    {
-        Invoke("DestroyInfo", 5f);
-    }
-
-
-
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

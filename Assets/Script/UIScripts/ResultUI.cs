@@ -1,33 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using BallScripts;
+using TileScripts;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ResultUI : MonoBehaviour
+namespace UIScripts
 {
-    public GameObject SuccessUI;
-    public GameObject FailUI;
-    // Start is called before the first frame update
-    void Start()
+    public class ResultUI : MonoBehaviour
     {
+        public GameObject SuccessUI;
+        public GameObject FailUI;
 
-    }
+        public BallMove BM;
+        private StageManager SM;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            SuccessStage();
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            FailStage();
-    }
+        // Update is called once per frame
+        private void Awake()
+        {
+            SM = GameObject.Find("StageManager").GetComponent<StageManager>();
+        }
 
-    void SuccessStage()
-    {
-        SuccessUI.SetActive(true);
-    }
-    void FailStage()
-    {
-        FailUI.SetActive(true);
+        private void Update()
+        {
+            if (!BM) return;
+            if (BM.isClear)
+            {
+                SM.UnlockNext();
+                SuccessStage();
+            }
+            else if (BM.isGameOver)
+                FailStage();
+        }
+
+        private void SuccessStage()
+        {
+            SuccessUI.SetActive(true);
+            BM = null;
+        }
+        private void FailStage()
+        {
+            FailUI.SetActive(true);
+            BM = null;
+        }
     }
 }

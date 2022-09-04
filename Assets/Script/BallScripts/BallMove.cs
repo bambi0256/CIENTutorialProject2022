@@ -1,4 +1,6 @@
+using System;
 using ObjectScripts;
+using UIScripts;
 using UnityEngine;
 
 namespace BallScripts
@@ -6,6 +8,7 @@ namespace BallScripts
     public class BallMove : MonoBehaviour
     {
         private Rigidbody2D _rigidbody2D;
+        private ResultUI RUI;
 
         public static int BallDir;
         // 0 = stop, 1 = up, 2 = right, 3 = down, 4 = left
@@ -23,8 +26,8 @@ namespace BallScripts
         private bool inPortal;
         private bool inGoal;
 
-        private bool isGameOver;
-        private bool isClear;
+        public bool isGameOver;
+        public bool isClear;
 
         private float portalDelayTime;
         private float portalDelayDeltaTime;
@@ -32,6 +35,8 @@ namespace BallScripts
         
         private void Start()
         {
+            RUI = GameObject.Find("InGame").GetComponent<ResultUI>();
+            RUI.BM = this;
             _rigidbody2D = GetComponent<Rigidbody2D>();
             BallSpeed = 40.0f;
             this.portalDelayTime = 0.5f;
@@ -88,21 +93,18 @@ namespace BallScripts
             if (this.blockHit)
             {
                 isGameOver = true;
-                Debug.Log("Block Hit Game Over");
             }
 
             // if ball is hit by cannonball, game over
             if (this.cannonballHit)
             {
                 isGameOver = true;
-                Debug.Log("Bullet Hit Game Over");
             }
 
             // if ball fall into hole, game over
             if (this.isIntoHole)
             {
                 isGameOver = true;
-                Debug.Log("Hole Game Over");
             }
             
             // if ball isn't on tile, game over
@@ -111,7 +113,6 @@ namespace BallScripts
             if (inGoal)
             {
                 isClear = true;
-                Debug.Log("Clear Game");
                 
                 // 맵 오픈 체크 함수
             }
@@ -133,6 +134,14 @@ namespace BallScripts
             if (other.CompareTag("Goal"))
             {
                 inGoal = true;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.CompareTag("Goal"))
+            {
+                inGoal = false;
             }
         }
 

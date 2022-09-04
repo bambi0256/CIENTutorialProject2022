@@ -1,4 +1,5 @@
 using BallScripts;
+using UIScripts;
 using UnityEngine;
 
 namespace TileScripts
@@ -6,6 +7,7 @@ namespace TileScripts
     public class StartTile : MonoBehaviour
     {
         public GameObject Ball;
+        private ResultUI RUI;
         public float DelayTime;
         
         private bool canStart;
