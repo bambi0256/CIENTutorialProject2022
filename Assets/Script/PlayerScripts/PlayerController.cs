@@ -104,6 +104,7 @@ namespace PlayerScripts
             this.isAcceleration = false;
             this.isMoving = false;
             this.CheckTile = false;
+            this.cannotMove = false;
 
             this.delayDeltaTime = 0.0f;
             this.hitDeltaTime = 0.0f;
@@ -163,9 +164,7 @@ namespace PlayerScripts
         
         private void Update()
         {
-            // Can I Build Tile?
-            CheckTile = (UD.Flag != LR.Flag && !OnTile.OnSwitch) || OnTile.OnOutPortal;
-
+            CheckTile = UD.Flag != LR.Flag && !OnTile.OnSwitch || OnTile.OnOutPortal;
             //Debug.Log(isExistFrontObject);
             
             // if player is hit by cannonball, player stun
@@ -343,7 +342,6 @@ namespace PlayerScripts
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                
                 if (CheckTile) BuildTile();
             }
         
@@ -393,9 +391,8 @@ namespace PlayerScripts
             this.movingDelayDeltaTime += Time.deltaTime;
 
             if (!(this.movingTriggerDeltaTime > this.movingTriggerTime)) return;
-            if (!(Mathf.Approximately(transform.position.x, targetPosition.x) && Mathf.Approximately(transform.position.y, targetPosition.y)))
-                return;
-            
+            if (!(Mathf.Approximately(transform.position.x, targetPosition.x) && Mathf.Approximately(transform.position.y, targetPosition.y))) return;
+
             if (this.movingDelayDeltaTime > this.movingDelayTime)
             {
                 setTargetPosition();
