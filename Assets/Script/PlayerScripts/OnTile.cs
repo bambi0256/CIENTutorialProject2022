@@ -1,36 +1,36 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class OnTile : MonoBehaviour
+namespace PlayerScripts
 {
-    public bool OnSwitch;
-    public bool OnOutPortal;
+    public class OnTile : MonoBehaviour
+    {
+        public bool OnSwitch;
+        public bool OnOutPortal;
     
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Circuit"))
+        private void OnTriggerStay2D(Collider2D other)
         {
-            OnSwitch = true;
+            if (other.gameObject.CompareTag("Circuit"))
+            {
+                OnSwitch = true;
+            }
+
+            if (other.gameObject.CompareTag("OutPortal"))
+            {
+                OnOutPortal = true;
+            }
         }
 
-        if (other.gameObject.CompareTag("OutPortal"))
+        private void OnTriggerExit2D(Collider2D other)
         {
-            OnOutPortal = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Circuit"))
-        {
-            OnSwitch = false;
-        }
+            if (other.gameObject.CompareTag("Circuit"))
+            {
+                OnSwitch = false;
+            }
             
-        if (other.gameObject.CompareTag("OutPortal"))
-        {
-            OnOutPortal = false;
+            if (other.gameObject.CompareTag("OutPortal"))
+            {
+                OnOutPortal = false;
+            }
         }
     }
 }

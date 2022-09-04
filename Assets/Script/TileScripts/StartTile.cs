@@ -10,6 +10,8 @@ namespace TileScripts
         
         private bool canStart;
 
+        public int Type = 1;
+
         private SpriteRenderer _sprite;
         private Sprite[] RoadSp;
         
@@ -75,24 +77,32 @@ namespace TileScripts
             {
                 NextPos = 1;
                 _sprite.sprite = RoadSp[1];
+                Type = 2;
+                return;
             }
 
             if (Right.Flag)
             {
                 NextPos = 2;
                 _sprite.sprite = RoadSp[2];
+                Type = 2;
+                return;
             }
 
             if (Down.Flag)
             {
                 NextPos = 3;
                 _sprite.sprite = RoadSp[3];
+                Type = 2;
+                return;
             }
 
             if (Left.Flag)
             {
                 NextPos = 4;
                 _sprite.sprite = RoadSp[4];
+                Type = 2;
+                return;
             }
         }
         
